@@ -3,7 +3,7 @@ import React from 'react';
 export function BriefingSection({ briefing }: { briefing: { today: any[]; tomorrow: any[] } }) {
   return (
     <section className="col" style={{ marginBottom: 12, minHeight: 'auto' }}>
-      <div className="col-head"><span>📅 Briefing</span><span className="count">live</span></div>
+      <div className="col-head"><span>📅 Briefing</span><span className="status-dot" title="live" /></div>
       <div className="cards">
         <div>
           <strong>Heute ({briefing.today.length})</strong>

@@ -23,7 +23,7 @@ const TaskCard = memo(function TaskCard({ t, onEdit }: { t: Task; onEdit: (t: Ta
 export function BoardColumn({ label, columnId, tasks, onEdit }: { label: string; columnId: string; tasks: Task[]; onEdit: (t: Task) => void }) {
   const { setNodeRef, isOver } = useDroppable({ id: `col-${columnId}` });
 
-  return <section ref={setNodeRef} className={`col ${isOver ? 'drag-over' : ''}`}>
+  return <section ref={setNodeRef} data-col={columnId} className={`col ${isOver ? 'drag-over' : ''}`}>
     <div className="col-head"><span>{label}</span><span className="count">{tasks.length}</span></div>
     <div className="cards">
       {tasks.map(t => <TaskCard key={t.id} t={t} onEdit={onEdit} />)}

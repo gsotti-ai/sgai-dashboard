@@ -125,7 +125,7 @@ export default function App() {
       </div>
       <DragOverlay>
         {activeTask ? (
-          <div className="card" style={{ width: 320, boxShadow: '0 14px 32px rgba(0,0,0,.45)', opacity: 0.95 }}>
+          <div className="card" style={{ width: 320, boxShadow: '0 20px 48px rgba(0,0,0,.7), 0 0 0 1px rgba(96,165,250,.3)', opacity: 0.95 }}>
             <div className="row"><div className="card-title">{activeTask.header || activeTask.title}</div><span className={`pill ${activeTask.assignee === 'agent' ? 'agent' : 'user'}`}>{activeTask.assignee === 'agent' ? 'SGAi' : 'Stefan'}</span></div>
             {activeTask.description ? <div className="meta">{activeTask.description}</div> : null}
           </div>
