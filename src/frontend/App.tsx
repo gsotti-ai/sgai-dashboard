@@ -19,6 +19,7 @@ export default function App() {
   const [briefing, setBriefing] = useState<{ today: any[]; tomorrow: any[] }>({ today: [], tomorrow: [] });
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [loading, setLoading] = useState(true);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
@@ -28,6 +29,7 @@ export default function App() {
     const r = await fetch(API, { cache: 'no-store' });
     const d = await r.json();
     setTasks(Array.isArray(d.tasks) ? d.tasks : []);
+    setLoading(false);
   };
 
   const saveTasks = async (next: Task[]) => {
@@ -150,9 +152,31 @@ export default function App() {
     <BriefingSection briefing={briefing} />
 
     <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragCancel={() => setActiveTask(null)}>
-      <div className="board">
-        {COLUMNS.map(col => <BoardColumn key={col.id} columnId={col.id} label={col.label} tasks={grouped[col.id] || []} onEdit={setEditing} />)}
-      </div>
+      {loading ? (
+        <div className="board">
+          {COLUMNS.map(col => (
+            <section key={col.id} className="col">
+              <div className="col-head"><span>{col.label}</span><span className="count">…</span></div>
+              <div className="cards">
+                <div className="skeleton-card" />
+                <div className="skeleton-card" />
+                <div className="skeleton-card" />
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <div className="board">
+          {COLUMNS.map(col => <BoardColumn key={col.id} columnId={col.id} label={col.label} tasks={grouped[col.id] || []} onEdit={setEditing} />)}
+        </div>
+      )}
+      {!loading && tasks.length === 0 ? (
+        <div className="empty-state">
+          <h3>Noch keine Tasks</h3>
+          <p>Erstelle deinen ersten Task und starte mit dem Board.</p>
+          <button className="btn-primary" onClick={() => setShowAdd(true)}>Ersten Task erstellen</button>
+        </div>
+      ) : null}
       <DragOverlay>
         {activeTask ? (
           <div className="card" style={{ width: 320, boxShadow: '0 20px 48px rgba(0,0,0,.7), 0 0 0 1px rgba(96,165,250,.3)', opacity: 0.95 }}>
