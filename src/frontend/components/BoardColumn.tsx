@@ -6,12 +6,12 @@ const TaskCard = memo(function TaskCard({ t, onEdit }: { t: Task; onEdit: (t: Ta
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: `task-${t.id}` });
   const style: React.CSSProperties = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-    opacity: isDragging ? 0.92 : 1,
+    opacity: isDragging ? 0 : 1,
     marginBottom: 10,
     position: 'relative',
-    zIndex: isDragging ? 9999 : 1,
+    zIndex: isDragging ? 0 : 1,
     touchAction: 'none',
-    boxShadow: isDragging ? '0 12px 28px rgba(0,0,0,.35)' : undefined,
+    boxShadow: isDragging ? 'none' : undefined,
   };
 
   return <div ref={setNodeRef} style={style} className="card" onClick={() => onEdit(t)} {...listeners} {...attributes}>

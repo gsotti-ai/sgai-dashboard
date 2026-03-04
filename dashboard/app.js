@@ -27235,12 +27235,12 @@ var TaskCard = (0, import_react4.memo)(function TaskCard2({ t, onEdit }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: `task-${t.id}` });
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : void 0,
-    opacity: isDragging ? 0.92 : 1,
+    opacity: isDragging ? 0 : 1,
     marginBottom: 10,
     position: "relative",
-    zIndex: isDragging ? 9999 : 1,
+    zIndex: isDragging ? 0 : 1,
     touchAction: "none",
-    boxShadow: isDragging ? "0 12px 28px rgba(0,0,0,.35)" : void 0
+    boxShadow: isDragging ? "none" : void 0
   };
   return /* @__PURE__ */ import_react4.default.createElement("div", { ref: setNodeRef, style, className: "card", onClick: () => onEdit(t), ...listeners, ...attributes }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "card-title" }, t.header || t.title), /* @__PURE__ */ import_react4.default.createElement("span", { className: `pill ${t.assignee === "agent" ? "agent" : "user"}` }, t.assignee === "agent" ? "SGAi" : "Stefan")), t.description ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "meta" }, t.description) : null);
 });
