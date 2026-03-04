@@ -18,6 +18,7 @@ export default function App() {
   const [editing, setEditing] = useState<Task | null>(null);
   const [briefing, setBriefing] = useState<{ today: any[]; tomorrow: any[] }>({ today: [], tomorrow: [] });
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
@@ -50,6 +51,10 @@ export default function App() {
     return () => clearInterval(i);
   }, []);
 
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
     return q ? tasks.filter(t => `${t.header || t.title || ''} ${t.description || ''}`.toLowerCase().includes(q)) : tasks;
@@ -61,6 +66,13 @@ export default function App() {
     for (const t of filtered) (g[t.status] ||= []).push(t);
     return g;
   }, [filtered]);
+
+  const kpis = useMemo(() => ({
+    scheduled: tasks.filter(t => t.status === 'scheduled').length,
+    queue: tasks.filter(t => t.status === 'queue').length,
+    inProgress: tasks.filter(t => t.status === 'in_progress').length,
+    done: tasks.filter(t => t.status === 'done').length,
+  }), [tasks]);
 
   const addTask = async (payload: any) => {
     const now = nowIso();
@@ -111,7 +123,25 @@ export default function App() {
   };
 
   return <div className="wrap">
-    <div className="header"><div><h1>📌 Task Board</h1><div className="sub">Open: {tasks.filter(t => t.status !== 'done').length} · Done: {tasks.filter(t => t.status === 'done').length}</div></div></div>
+    <div className="header">
+      <div>
+        <h1>📌 Task Board</h1>
+        <div className="sub">Open: {tasks.filter(t => t.status !== 'done').length} · Done: {tasks.filter(t => t.status === 'done').length}</div>
+      </div>
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? '☀️ Light' : '🌙 Dark'}</button>
+    </div>
+
+    <div className="kpi-grid">
+      <div className="kpi-card"><span>Scheduled</span><strong>{kpis.scheduled}</strong></div>
+      <div className="kpi-card"><span>Queue</span><strong>{kpis.queue}</strong></div>
+      <div className="kpi-card"><span>In Progress</span><strong>{kpis.inProgress}</strong></div>
+      <div className="kpi-card"><span>Done</span><strong>{kpis.done}</strong></div>
+    </div>
+
+    <div className="mobile-nav">
+      {COLUMNS.map(c => <a key={c.id} href={`#col-${c.id}`}>{c.label}</a>)}
+    </div>
+
     <div className="toolbar">
       <input className="search" placeholder="Suche in Tasks..." value={search} onChange={e => setSearch(e.target.value)} />
       <button className="btn-primary" onClick={() => setShowAdd(true)}>+ Add Task</button>

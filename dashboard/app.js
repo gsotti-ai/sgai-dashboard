@@ -27231,7 +27231,7 @@ var DragOverlay = /* @__PURE__ */ import_react3.default.memo((_ref) => {
 
 // src/frontend/components/BoardColumn.tsx
 var import_react4 = __toESM(require_react());
-var TaskCard = (0, import_react4.memo)(function TaskCard2({ t, onEdit }) {
+var TaskCard = (0, import_react4.memo)(function TaskCard2({ t, onEdit, idx }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: `task-${t.id}` });
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : void 0,
@@ -27242,11 +27242,11 @@ var TaskCard = (0, import_react4.memo)(function TaskCard2({ t, onEdit }) {
     touchAction: "none",
     boxShadow: isDragging ? "none" : void 0
   };
-  return /* @__PURE__ */ import_react4.default.createElement("div", { ref: setNodeRef, style, className: "card", onClick: () => onEdit(t), ...listeners, ...attributes }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "card-title" }, t.header || t.title), /* @__PURE__ */ import_react4.default.createElement("span", { className: `pill ${t.assignee === "agent" ? "agent" : "user"}` }, t.assignee === "agent" ? "SGAi" : "Stefan")), t.description ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "meta" }, t.description) : null);
+  return /* @__PURE__ */ import_react4.default.createElement("div", { ref: setNodeRef, style: { ...style, animationDelay: `${Math.min(idx, 8) * 45}ms` }, className: "card card-animate", onClick: () => onEdit(t), ...listeners, ...attributes }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "card-title" }, t.header || t.title), /* @__PURE__ */ import_react4.default.createElement("span", { className: `pill ${t.assignee === "agent" ? "agent" : "user"}` }, t.assignee === "agent" ? "SGAi" : "Stefan")), t.description ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "meta" }, t.description) : null);
 });
 function BoardColumn({ label, columnId, tasks, onEdit }) {
   const { setNodeRef, isOver } = useDroppable({ id: `col-${columnId}` });
-  return /* @__PURE__ */ import_react4.default.createElement("section", { ref: setNodeRef, "data-col": columnId, className: `col ${isOver ? "drag-over" : ""}` }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "col-head" }, /* @__PURE__ */ import_react4.default.createElement("span", null, label), /* @__PURE__ */ import_react4.default.createElement("span", { className: "count" }, tasks.length)), /* @__PURE__ */ import_react4.default.createElement("div", { className: "cards" }, tasks.map((t) => /* @__PURE__ */ import_react4.default.createElement(TaskCard, { key: t.id, t, onEdit })), tasks.length === 0 ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "meta" }, "Keine Tasks") : null));
+  return /* @__PURE__ */ import_react4.default.createElement("section", { id: `col-${columnId}`, ref: setNodeRef, "data-col": columnId, className: `col ${isOver ? "drag-over" : ""}` }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "col-head" }, /* @__PURE__ */ import_react4.default.createElement("span", null, label), /* @__PURE__ */ import_react4.default.createElement("span", { className: "count" }, tasks.length)), /* @__PURE__ */ import_react4.default.createElement("div", { className: "cards" }, tasks.map((t, i) => /* @__PURE__ */ import_react4.default.createElement(TaskCard, { key: t.id, t, idx: i, onEdit })), tasks.length === 0 ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "meta" }, "Keine Tasks") : null));
 }
 
 // src/frontend/components/BriefingSection.tsx
@@ -27377,6 +27377,7 @@ function App() {
   const [editing, setEditing] = (0, import_react8.useState)(null);
   const [briefing, setBriefing] = (0, import_react8.useState)({ today: [], tomorrow: [] });
   const [activeTask, setActiveTask] = (0, import_react8.useState)(null);
+  const [theme, setTheme] = (0, import_react8.useState)("dark");
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
@@ -27408,6 +27409,9 @@ function App() {
     }, 5e3);
     return () => clearInterval(i);
   }, []);
+  (0, import_react8.useEffect)(() => {
+    document.body.setAttribute("data-theme", theme);
+  }, [theme]);
   const filtered = (0, import_react8.useMemo)(() => {
     const q = search.toLowerCase();
     return q ? tasks.filter((t) => `${t.header || t.title || ""} ${t.description || ""}`.toLowerCase().includes(q)) : tasks;
@@ -27418,6 +27422,12 @@ function App() {
     for (const t of filtered) (g[t.status] ||= []).push(t);
     return g;
   }, [filtered]);
+  const kpis = (0, import_react8.useMemo)(() => ({
+    scheduled: tasks.filter((t) => t.status === "scheduled").length,
+    queue: tasks.filter((t) => t.status === "queue").length,
+    inProgress: tasks.filter((t) => t.status === "in_progress").length,
+    done: tasks.filter((t) => t.status === "done").length
+  }), [tasks]);
   const addTask = async (payload) => {
     const now = nowIso();
     const next = [{
@@ -27469,7 +27479,7 @@ function App() {
     }
     return urls;
   };
-  return /* @__PURE__ */ import_react8.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react8.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react8.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react8.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react8.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react8.default.createElement(DndContext, { sensors, onDragStart, onDragEnd, onDragCancel: () => setActiveTask(null) }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react8.default.createElement(BoardColumn, { key: col.id, columnId: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing }))), /* @__PURE__ */ import_react8.default.createElement(DragOverlay, null, activeTask ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "card", style: { width: 320, boxShadow: "0 20px 48px rgba(0,0,0,.7), 0 0 0 1px rgba(96,165,250,.3)", opacity: 0.95 } }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "card-title" }, activeTask.header || activeTask.title), /* @__PURE__ */ import_react8.default.createElement("span", { className: `pill ${activeTask.assignee === "agent" ? "agent" : "user"}` }, activeTask.assignee === "agent" ? "SGAi" : "Stefan")), activeTask.description ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "meta" }, activeTask.description) : null) : null)), showAdd && /* @__PURE__ */ import_react8.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react8.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
+  return /* @__PURE__ */ import_react8.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react8.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length)), /* @__PURE__ */ import_react8.default.createElement("button", { onClick: () => setTheme(theme === "dark" ? "light" : "dark") }, theme === "dark" ? "\u2600\uFE0F Light" : "\u{1F319} Dark")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "kpi-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "kpi-card" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "Scheduled"), /* @__PURE__ */ import_react8.default.createElement("strong", null, kpis.scheduled)), /* @__PURE__ */ import_react8.default.createElement("div", { className: "kpi-card" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "Queue"), /* @__PURE__ */ import_react8.default.createElement("strong", null, kpis.queue)), /* @__PURE__ */ import_react8.default.createElement("div", { className: "kpi-card" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "In Progress"), /* @__PURE__ */ import_react8.default.createElement("strong", null, kpis.inProgress)), /* @__PURE__ */ import_react8.default.createElement("div", { className: "kpi-card" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "Done"), /* @__PURE__ */ import_react8.default.createElement("strong", null, kpis.done))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "mobile-nav" }, COLUMNS.map((c) => /* @__PURE__ */ import_react8.default.createElement("a", { key: c.id, href: `#col-${c.id}` }, c.label))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react8.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react8.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react8.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react8.default.createElement(DndContext, { sensors, onDragStart, onDragEnd, onDragCancel: () => setActiveTask(null) }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react8.default.createElement(BoardColumn, { key: col.id, columnId: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing }))), /* @__PURE__ */ import_react8.default.createElement(DragOverlay, null, activeTask ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "card", style: { width: 320, boxShadow: "0 20px 48px rgba(0,0,0,.7), 0 0 0 1px rgba(96,165,250,.3)", opacity: 0.95 } }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "card-title" }, activeTask.header || activeTask.title), /* @__PURE__ */ import_react8.default.createElement("span", { className: `pill ${activeTask.assignee === "agent" ? "agent" : "user"}` }, activeTask.assignee === "agent" ? "SGAi" : "Stefan")), activeTask.description ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "meta" }, activeTask.description) : null) : null)), showAdd && /* @__PURE__ */ import_react8.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react8.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
     const next = tasks.map((t) => t.id !== editing.id ? t : { ...t, header: p.header, title: p.header, description: p.description, imageUrls: p.imageUrls, dueAt: p.dueAt, assignee: p.assignee, comments: p.comments || t.comments || [], updatedAt: nowIso() });
     await saveTasks(next);
     setEditing(null);

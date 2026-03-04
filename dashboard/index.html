@@ -30,6 +30,12 @@
     .sub { color: #b4c0dc; font-size:.85rem; }
 
     .toolbar { display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
+    .kpi-card { border:1px solid rgba(255,255,255,.08); background:rgba(15,23,41,.7); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; }
+    .kpi-card span { color:var(--muted); font-size:.8rem; }
+    .kpi-card strong { font-size:1.15rem; }
+    .mobile-nav { display:none; gap:8px; overflow:auto; margin-bottom:12px; }
+    .mobile-nav a { border:1px solid var(--line); background:#0f1729; color:var(--text); border-radius:999px; padding:8px 10px; text-decoration:none; font-size:.8rem; white-space:nowrap; }
     input, select, button, textarea { border:1px solid var(--line); background:#0f1729; color:var(--text); border-radius:10px; padding:10px 12px; transition:border-color .2s, box-shadow .2s, transform .2s; }
     input:focus, select:focus, textarea:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.2); }
     textarea { resize: vertical; min-height: 90px; }
@@ -48,10 +54,25 @@
     .count { color: var(--muted); font-size:.85rem; }
     .status-dot { width:10px; height:10px; border-radius:50%; display:inline-block; background:#22c55e; box-shadow:0 0 0 0 rgba(34,197,94,.7); animation:pulse 2s infinite; }
     @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(34,197,94,.7);} 70% { box-shadow:0 0 0 10px rgba(34,197,94,0);} 100% { box-shadow:0 0 0 0 rgba(34,197,94,0);} }
+
+    body[data-theme="light"] {
+      --bg:#edf2ff; --text:#0f172a; --muted:#475569; --line:#cbd5e1;
+      background: radial-gradient(1400px 800px at 15% -10%, #c7d8ff 0%, #eef3ff 60%);
+    }
+    body[data-theme="light"] .col { background:rgba(255,255,255,.78); border-color:rgba(15,23,42,.1); }
+    body[data-theme="light"] .card { background:rgba(255,255,255,.92); border-color:rgba(15,23,42,.08); box-shadow:0 2px 10px rgba(15,23,42,.12); }
+    body[data-theme="light"] input,
+    body[data-theme="light"] select,
+    body[data-theme="light"] textarea,
+    body[data-theme="light"] .mobile-nav a,
+    body[data-theme="light"] button { background:#fff; color:#0f172a; }
+    body[data-theme="light"] .kpi-card { background:#fff; border-color:rgba(15,23,42,.08); }
     .cards { padding:10px; display:grid; gap:10px; }
 
     .card { background:rgba(23,34,58,.85); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px; display:grid; gap:8px; cursor:grab; transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease; box-shadow:0 2px 12px rgba(0,0,0,.4); }
     .card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.5),0 0 0 1px rgba(96,165,250,.15); border-color:rgba(96,165,250,.25); }
+    .card-animate { animation: cardIn .35s ease both; }
+    @keyframes cardIn { from { opacity:0; transform:translateY(8px) scale(.99);} to { opacity:1; transform:translateY(0) scale(1);} }
     .card.dragging { opacity:.45; transform: scale(.97); }
     .card-title { font-weight:600; line-height:1.3; }
     .row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
@@ -79,7 +100,7 @@
     .modal-grid { display:grid; gap:10px; grid-template-columns:1fr 1fr; }
     .modal-grid .full { grid-column:1/-1; }
 
-    @media (max-width: 1100px) { .board { grid-template-columns:1fr 1fr; } }
+    @media (max-width: 1100px) { .board { grid-template-columns:1fr 1fr; } .kpi-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (max-width: 700px) {
       .board { grid-template-columns:1fr; }
       .search { min-width: 100%; }
@@ -88,6 +109,7 @@
       .modal-card { width:100%; max-height:92vh; border-radius:16px 16px 0 0; overflow:auto; }
       .actions button { padding:10px 12px; font-size:.88rem; }
       .card { cursor:pointer; }
+      .mobile-nav { display:flex; }
       .image-selector .image-preview-grid { grid-template-columns:1fr; }
     }
   </style>
