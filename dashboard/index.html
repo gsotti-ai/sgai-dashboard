@@ -58,7 +58,15 @@
     .modal-grid .full { grid-column:1/-1; }
 
     @media (max-width: 1100px) { .board { grid-template-columns:1fr 1fr; } }
-    @media (max-width: 700px) { .board { grid-template-columns:1fr; } .search { min-width: 100%; } .modal-grid { grid-template-columns:1fr; } }
+    @media (max-width: 700px) {
+      .board { grid-template-columns:1fr; }
+      .search { min-width: 100%; }
+      .modal-grid { grid-template-columns:1fr; }
+      .modal { padding:0; align-items:flex-end; }
+      .modal-card { width:100%; max-height:92vh; border-radius:16px 16px 0 0; overflow:auto; }
+      .actions button { padding:10px 12px; font-size:.88rem; }
+      .card { cursor:pointer; }
+    }
   </style>
 </head>
 <body>

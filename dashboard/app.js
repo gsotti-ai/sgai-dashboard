@@ -275,14 +275,14 @@ var require_react_development = __commonJS({
         function ComponentDummy() {
         }
         ComponentDummy.prototype = Component.prototype;
-        function PureComponent(props, context, updater) {
+        function PureComponent2(props, context, updater) {
           this.props = props;
           this.context = context;
           this.refs = emptyObject;
           this.updater = updater || ReactNoopUpdateQueue;
         }
-        var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
-        pureComponentPrototype.constructor = PureComponent;
+        var pureComponentPrototype = PureComponent2.prototype = new ComponentDummy();
+        pureComponentPrototype.constructor = PureComponent2;
         assign(pureComponentPrototype, Component.prototype);
         pureComponentPrototype.isPureReactComponent = true;
         function createRef() {
@@ -509,7 +509,7 @@ var require_react_development = __commonJS({
           }
           return element;
         };
-        function createElement(type, config, children) {
+        function createElement2(type, config, children) {
           var propName;
           var props = {};
           var key = null;
@@ -1031,7 +1031,7 @@ var require_react_development = __commonJS({
           }
           return false;
         }
-        function memo(type, compare) {
+        function memo2(type, compare) {
           {
             if (!isValidElementType(type)) {
               error("memo: The first argument must be a component. Instead received: %s", type === null ? "null" : typeof type);
@@ -1083,7 +1083,7 @@ var require_react_development = __commonJS({
           }
           return dispatcher.useContext(Context);
         }
-        function useState2(initialState) {
+        function useState3(initialState) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useState(initialState);
         }
@@ -1608,7 +1608,7 @@ var require_react_development = __commonJS({
               error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
             }
           }
-          var element = createElement.apply(this, arguments);
+          var element = createElement2.apply(this, arguments);
           if (element == null) {
             return element;
           }
@@ -1858,7 +1858,7 @@ var require_react_development = __commonJS({
         exports.Component = Component;
         exports.Fragment = REACT_FRAGMENT_TYPE;
         exports.Profiler = REACT_PROFILER_TYPE;
-        exports.PureComponent = PureComponent;
+        exports.PureComponent = PureComponent2;
         exports.StrictMode = REACT_STRICT_MODE_TYPE;
         exports.Suspense = REACT_SUSPENSE_TYPE;
         exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals;
@@ -1871,7 +1871,7 @@ var require_react_development = __commonJS({
         exports.forwardRef = forwardRef;
         exports.isValidElement = isValidElement;
         exports.lazy = lazy;
-        exports.memo = memo;
+        exports.memo = memo2;
         exports.startTransition = startTransition;
         exports.unstable_act = act;
         exports.useCallback = useCallback;
@@ -1886,7 +1886,7 @@ var require_react_development = __commonJS({
         exports.useMemo = useMemo2;
         exports.useReducer = useReducer;
         exports.useRef = useRef;
-        exports.useState = useState2;
+        exports.useState = useState3;
         exports.useSyncExternalStore = useSyncExternalStore;
         exports.useTransition = useTransition;
         exports.version = ReactVersion;
@@ -2382,9 +2382,9 @@ var require_react_dom_development = __commonJS({
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
           __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
         }
-        var React3 = require_react();
+        var React6 = require_react();
         var Scheduler = require_scheduler();
-        var ReactSharedInternals = React3.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         var suppressWarning = false;
         function setSuppressWarning(newSuppressWarning) {
           {
@@ -3987,11 +3987,11 @@ var require_react_dom_development = __commonJS({
         var didWarnSelectedSetOnOption = false;
         var didWarnInvalidChild = false;
         var didWarnInvalidInnerHTML = false;
-        function validateProps(element, props) {
+        function validateProps2(element, props) {
           {
             if (props.value == null) {
               if (typeof props.children === "object" && props.children !== null) {
-                React3.Children.forEach(props.children, function(child) {
+                React6.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -6000,7 +6000,7 @@ var require_react_dom_development = __commonJS({
         var cancelCallback = Scheduler.unstable_cancelCallback;
         var shouldYield = Scheduler.unstable_shouldYield;
         var requestPaint = Scheduler.unstable_requestPaint;
-        var now = Scheduler.unstable_now;
+        var now2 = Scheduler.unstable_now;
         var getCurrentPriorityLevel = Scheduler.unstable_getCurrentPriorityLevel;
         var ImmediatePriority = Scheduler.unstable_ImmediatePriority;
         var UserBlockingPriority = Scheduler.unstable_UserBlockingPriority;
@@ -9415,7 +9415,7 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        function createElement(type, props, rootContainerElement, parentNamespace) {
+        function createElement2(type, props, rootContainerElement, parentNamespace) {
           var isCustomComponentTag;
           var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
           var domElement;
@@ -9512,7 +9512,7 @@ var require_react_dom_development = __commonJS({
               listenToNonDelegatedEvent("invalid", domElement);
               break;
             case "option":
-              validateProps(domElement, rawProps);
+              validateProps2(domElement, rawProps);
               props = rawProps;
               break;
             case "select":
@@ -9755,7 +9755,7 @@ var require_react_dom_development = __commonJS({
               listenToNonDelegatedEvent("invalid", domElement);
               break;
             case "option":
-              validateProps(domElement, rawProps);
+              validateProps2(domElement, rawProps);
               break;
             case "select":
               initWrapperState$1(domElement, rawProps);
@@ -10285,7 +10285,7 @@ var require_react_dom_development = __commonJS({
             }
             parentNamespace = hostContextDev.namespace;
           }
-          var domElement = createElement(type, props, rootContainerInstance, parentNamespace);
+          var domElement = createElement2(type, props, rootContainerInstance, parentNamespace);
           precacheFiberNode(internalInstanceHandle, domElement);
           updateFiberProps(domElement, props);
           return domElement;
@@ -10338,7 +10338,7 @@ var require_react_dom_development = __commonJS({
           return getEventPriority(currentEvent.type);
         }
         var scheduleTimeout = typeof setTimeout === "function" ? setTimeout : void 0;
-        var cancelTimeout = typeof clearTimeout === "function" ? clearTimeout : void 0;
+        var cancelTimeout2 = typeof clearTimeout === "function" ? clearTimeout : void 0;
         var noTimeout = -1;
         var localPromise = typeof Promise === "function" ? Promise : void 0;
         var scheduleMicrotask = typeof queueMicrotask === "function" ? queueMicrotask : typeof localPromise !== "undefined" ? function(callback) {
@@ -18386,7 +18386,7 @@ var require_react_dom_development = __commonJS({
                       row = row.sibling;
                     }
                   }
-                  if (renderState.tail !== null && now() > getRenderTargetTime()) {
+                  if (renderState.tail !== null && now2() > getRenderTargetTime()) {
                     workInProgress2.flags |= DidCapture;
                     didSuspendAlready = true;
                     cutOffTailIfNeeded(renderState, false);
@@ -18415,7 +18415,7 @@ var require_react_dom_development = __commonJS({
                     // The time it took to render last row is greater than the remaining
                     // time we have to render. So rendering one more row would likely
                     // exceed it.
-                    now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes2 !== OffscreenLane
+                    now2() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes2 !== OffscreenLane
                   ) {
                     workInProgress2.flags |= DidCapture;
                     didSuspendAlready = true;
@@ -18440,7 +18440,7 @@ var require_react_dom_development = __commonJS({
                 var next = renderState.tail;
                 renderState.rendering = next;
                 renderState.tail = next.sibling;
-                renderState.renderingStartTime = now();
+                renderState.renderingStartTime = now2();
                 next.sibling = null;
                 var suspenseContext = suspenseStackCursor.current;
                 if (didSuspendAlready) {
@@ -20412,7 +20412,7 @@ var require_react_dom_development = __commonJS({
         var RENDER_TIMEOUT_MS = 500;
         var workInProgressTransitions = null;
         function resetRenderTimer() {
-          workInProgressRootRenderTargetTime = now() + RENDER_TIMEOUT_MS;
+          workInProgressRootRenderTargetTime = now2() + RENDER_TIMEOUT_MS;
         }
         function getRenderTargetTime() {
           return workInProgressRootRenderTargetTime;
@@ -20441,12 +20441,12 @@ var require_react_dom_development = __commonJS({
         }
         function requestEventTime() {
           if ((executionContext & (RenderContext | CommitContext)) !== NoContext) {
-            return now();
+            return now2();
           }
           if (currentEventTime !== NoTimestamp) {
             return currentEventTime;
           }
-          currentEventTime = now();
+          currentEventTime = now2();
           return currentEventTime;
         }
         function requestUpdateLane(fiber) {
@@ -20643,7 +20643,7 @@ var require_react_dom_development = __commonJS({
               var fatalError = workInProgressRootFatalError;
               prepareFreshStack(root2, NoLanes);
               markRootSuspended$1(root2, lanes);
-              ensureRootIsScheduled(root2, now());
+              ensureRootIsScheduled(root2, now2());
               throw fatalError;
             }
             if (exitStatus === RootDidNotComplete) {
@@ -20664,7 +20664,7 @@ var require_react_dom_development = __commonJS({
                   var _fatalError = workInProgressRootFatalError;
                   prepareFreshStack(root2, NoLanes);
                   markRootSuspended$1(root2, lanes);
-                  ensureRootIsScheduled(root2, now());
+                  ensureRootIsScheduled(root2, now2());
                   throw _fatalError;
                 }
               }
@@ -20673,7 +20673,7 @@ var require_react_dom_development = __commonJS({
               finishConcurrentRender(root2, exitStatus, lanes);
             }
           }
-          ensureRootIsScheduled(root2, now());
+          ensureRootIsScheduled(root2, now2());
           if (root2.callbackNode === originalCallbackNode) {
             return performConcurrentWorkOnRoot.bind(null, root2);
           }
@@ -20722,7 +20722,7 @@ var require_react_dom_development = __commonJS({
               markRootSuspended$1(root2, lanes);
               if (includesOnlyRetries(lanes) && // do not delay if we're inside an act() scope
               !shouldForceFlushFallbacksInDEV()) {
-                var msUntilTimeout = globalMostRecentFallbackTime + FALLBACK_THROTTLE_MS - now();
+                var msUntilTimeout = globalMostRecentFallbackTime + FALLBACK_THROTTLE_MS - now2();
                 if (msUntilTimeout > 10) {
                   var nextLanes = getNextLanes(root2, NoLanes);
                   if (nextLanes !== NoLanes) {
@@ -20749,7 +20749,7 @@ var require_react_dom_development = __commonJS({
               if (!shouldForceFlushFallbacksInDEV()) {
                 var mostRecentEventTime = getMostRecentEventTime(root2, lanes);
                 var eventTimeMs = mostRecentEventTime;
-                var timeElapsedMs = now() - eventTimeMs;
+                var timeElapsedMs = now2() - eventTimeMs;
                 var _msUntilTimeout = jnd(timeElapsedMs) - timeElapsedMs;
                 if (_msUntilTimeout > 10) {
                   root2.timeoutHandle = scheduleTimeout(commitRoot.bind(null, root2, workInProgressRootRecoverableErrors, workInProgressTransitions), _msUntilTimeout);
@@ -20826,7 +20826,7 @@ var require_react_dom_development = __commonJS({
           flushPassiveEffects();
           var lanes = getNextLanes(root2, NoLanes);
           if (!includesSomeLane(lanes, SyncLane)) {
-            ensureRootIsScheduled(root2, now());
+            ensureRootIsScheduled(root2, now2());
             return null;
           }
           var exitStatus = renderRootSync(root2, lanes);
@@ -20841,7 +20841,7 @@ var require_react_dom_development = __commonJS({
             var fatalError = workInProgressRootFatalError;
             prepareFreshStack(root2, NoLanes);
             markRootSuspended$1(root2, lanes);
-            ensureRootIsScheduled(root2, now());
+            ensureRootIsScheduled(root2, now2());
             throw fatalError;
           }
           if (exitStatus === RootDidNotComplete) {
@@ -20851,13 +20851,13 @@ var require_react_dom_development = __commonJS({
           root2.finishedWork = finishedWork;
           root2.finishedLanes = lanes;
           commitRoot(root2, workInProgressRootRecoverableErrors, workInProgressTransitions);
-          ensureRootIsScheduled(root2, now());
+          ensureRootIsScheduled(root2, now2());
           return null;
         }
         function flushRoot(root2, lanes) {
           if (lanes !== NoLanes) {
             markRootEntangled(root2, mergeLanes(lanes, SyncLane));
-            ensureRootIsScheduled(root2, now());
+            ensureRootIsScheduled(root2, now2());
             if ((executionContext & (RenderContext | CommitContext)) === NoContext) {
               resetRenderTimer();
               flushSyncCallbacks();
@@ -20936,7 +20936,7 @@ var require_react_dom_development = __commonJS({
           var timeoutHandle = root2.timeoutHandle;
           if (timeoutHandle !== noTimeout) {
             root2.timeoutHandle = noTimeout;
-            cancelTimeout(timeoutHandle);
+            cancelTimeout2(timeoutHandle);
           }
           if (workInProgress !== null) {
             var interruptedWork = workInProgress.return;
@@ -21017,7 +21017,7 @@ var require_react_dom_development = __commonJS({
           ReactCurrentDispatcher$2.current = prevDispatcher;
         }
         function markCommitTimeOfFallback() {
-          globalMostRecentFallbackTime = now();
+          globalMostRecentFallbackTime = now2();
         }
         function markSkippedUpdateLanes(lane) {
           workInProgressRootSkippedLanes = mergeLanes(lane, workInProgressRootSkippedLanes);
@@ -21351,7 +21351,7 @@ var require_react_dom_development = __commonJS({
           {
             onCommitRoot$1();
           }
-          ensureRootIsScheduled(root2, now());
+          ensureRootIsScheduled(root2, now2());
           if (recoverableErrors !== null) {
             var onRecoverableError = root2.onRecoverableError;
             for (var i = 0; i < recoverableErrors.length; i++) {
@@ -21558,7 +21558,7 @@ var require_react_dom_development = __commonJS({
           markRootPinged(root2, pingedLanes);
           warnIfSuspenseResolutionNotWrappedWithActDEV(root2);
           if (workInProgressRoot === root2 && isSubsetOfLanes(workInProgressRootRenderLanes, pingedLanes)) {
-            if (workInProgressRootExitStatus === RootSuspendedWithDelay || workInProgressRootExitStatus === RootSuspended && includesOnlyRetries(workInProgressRootRenderLanes) && now() - globalMostRecentFallbackTime < FALLBACK_THROTTLE_MS) {
+            if (workInProgressRootExitStatus === RootSuspendedWithDelay || workInProgressRootExitStatus === RootSuspended && includesOnlyRetries(workInProgressRootRenderLanes) && now2() - globalMostRecentFallbackTime < FALLBACK_THROTTLE_MS) {
               prepareFreshStack(root2, NoLanes);
             } else {
               workInProgressRootPingedLanes = mergeLanes(workInProgressRootPingedLanes, pingedLanes);
@@ -23581,32 +23581,675 @@ var require_client = __commonJS({
 });
 
 // src/frontend/main.tsx
-var import_react2 = __toESM(require_react());
+var import_react6 = __toESM(require_react());
 var import_client = __toESM(require_client());
 
 // src/frontend/App.tsx
+var import_react5 = __toESM(require_react());
+
+// src/frontend/components/BoardColumn.tsx
+var import_react2 = __toESM(require_react());
+
+// node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function(n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+
+// node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+// node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(t2, e2) {
+    return t2.__proto__ = e2, t2;
+  }, _setPrototypeOf(t, e);
+}
+
+// node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+function _inheritsLoose(t, o) {
+  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o);
+}
+
+// node_modules/memoize-one/dist/memoize-one.esm.js
+var safeIsNaN = Number.isNaN || function ponyfill(value) {
+  return typeof value === "number" && value !== value;
+};
+function isEqual(first, second) {
+  if (first === second) {
+    return true;
+  }
+  if (safeIsNaN(first) && safeIsNaN(second)) {
+    return true;
+  }
+  return false;
+}
+function areInputsEqual(newInputs, lastInputs) {
+  if (newInputs.length !== lastInputs.length) {
+    return false;
+  }
+  for (var i = 0; i < newInputs.length; i++) {
+    if (!isEqual(newInputs[i], lastInputs[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+function memoizeOne(resultFn, isEqual2) {
+  if (isEqual2 === void 0) {
+    isEqual2 = areInputsEqual;
+  }
+  var lastThis;
+  var lastArgs = [];
+  var lastResult;
+  var calledOnce = false;
+  function memoized() {
+    var newArgs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      newArgs[_i] = arguments[_i];
+    }
+    if (calledOnce && lastThis === this && isEqual2(newArgs, lastArgs)) {
+      return lastResult;
+    }
+    lastResult = resultFn.apply(this, newArgs);
+    calledOnce = true;
+    lastThis = this;
+    lastArgs = newArgs;
+    return lastResult;
+  }
+  return memoized;
+}
+var memoize_one_esm_default = memoizeOne;
+
+// node_modules/react-window/dist/index.esm.js
 var import_react = __toESM(require_react());
-var API = new URL("../api/tasks", window.location.href).toString();
-var UPLOAD_API = new URL("../api/upload-image", window.location.href).toString();
-var BRIEFING_TODAY_URL = "../data/calendar-sync/today.json";
-var BRIEFING_TOMORROW_URL = "../data/calendar-sync/tomorrow.json";
+var hasNativePerformanceNow = typeof performance === "object" && typeof performance.now === "function";
+var now = hasNativePerformanceNow ? function() {
+  return performance.now();
+} : function() {
+  return Date.now();
+};
+function cancelTimeout(timeoutID) {
+  cancelAnimationFrame(timeoutID.id);
+}
+function requestTimeout(callback, delay) {
+  var start = now();
+  function tick() {
+    if (now() - start >= delay) {
+      callback.call(null);
+    } else {
+      timeoutID.id = requestAnimationFrame(tick);
+    }
+  }
+  var timeoutID = {
+    id: requestAnimationFrame(tick)
+  };
+  return timeoutID;
+}
+var size = -1;
+function getScrollbarSize(recalculate) {
+  if (recalculate === void 0) {
+    recalculate = false;
+  }
+  if (size === -1 || recalculate) {
+    var div = document.createElement("div");
+    var style = div.style;
+    style.width = "50px";
+    style.height = "50px";
+    style.overflow = "scroll";
+    document.body.appendChild(div);
+    size = div.offsetWidth - div.clientWidth;
+    document.body.removeChild(div);
+  }
+  return size;
+}
+var cachedRTLResult = null;
+function getRTLOffsetType(recalculate) {
+  if (recalculate === void 0) {
+    recalculate = false;
+  }
+  if (cachedRTLResult === null || recalculate) {
+    var outerDiv = document.createElement("div");
+    var outerStyle = outerDiv.style;
+    outerStyle.width = "50px";
+    outerStyle.height = "50px";
+    outerStyle.overflow = "scroll";
+    outerStyle.direction = "rtl";
+    var innerDiv = document.createElement("div");
+    var innerStyle = innerDiv.style;
+    innerStyle.width = "100px";
+    innerStyle.height = "100px";
+    outerDiv.appendChild(innerDiv);
+    document.body.appendChild(outerDiv);
+    if (outerDiv.scrollLeft > 0) {
+      cachedRTLResult = "positive-descending";
+    } else {
+      outerDiv.scrollLeft = 1;
+      if (outerDiv.scrollLeft === 0) {
+        cachedRTLResult = "negative";
+      } else {
+        cachedRTLResult = "positive-ascending";
+      }
+    }
+    document.body.removeChild(outerDiv);
+    return cachedRTLResult;
+  }
+  return cachedRTLResult;
+}
+var devWarningsOverscanCount = null;
+var devWarningsOverscanRowsColumnsCount = null;
+var devWarningsTagName = null;
+if (true) {
+  if (typeof window !== "undefined" && typeof window.WeakSet !== "undefined") {
+    devWarningsOverscanCount = /* @__PURE__ */ new WeakSet();
+    devWarningsOverscanRowsColumnsCount = /* @__PURE__ */ new WeakSet();
+    devWarningsTagName = /* @__PURE__ */ new WeakSet();
+  }
+}
+var IS_SCROLLING_DEBOUNCE_INTERVAL$1 = 150;
+var defaultItemKey$1 = function defaultItemKey(index, data) {
+  return index;
+};
+var devWarningsDirection = null;
+var devWarningsTagName$1 = null;
+if (true) {
+  if (typeof window !== "undefined" && typeof window.WeakSet !== "undefined") {
+    devWarningsDirection = /* @__PURE__ */ new WeakSet();
+    devWarningsTagName$1 = /* @__PURE__ */ new WeakSet();
+  }
+}
+function createListComponent(_ref) {
+  var _class;
+  var getItemOffset2 = _ref.getItemOffset, getEstimatedTotalSize2 = _ref.getEstimatedTotalSize, getItemSize2 = _ref.getItemSize, getOffsetForIndexAndAlignment2 = _ref.getOffsetForIndexAndAlignment, getStartIndexForOffset2 = _ref.getStartIndexForOffset, getStopIndexForStartIndex2 = _ref.getStopIndexForStartIndex, initInstanceProps2 = _ref.initInstanceProps, shouldResetStyleCacheOnItemSizeChange = _ref.shouldResetStyleCacheOnItemSizeChange, validateProps2 = _ref.validateProps;
+  return _class = /* @__PURE__ */ (function(_PureComponent) {
+    _inheritsLoose(List, _PureComponent);
+    function List(props) {
+      var _this;
+      _this = _PureComponent.call(this, props) || this;
+      _this._instanceProps = initInstanceProps2(_this.props, _assertThisInitialized(_this));
+      _this._outerRef = void 0;
+      _this._resetIsScrollingTimeoutId = null;
+      _this.state = {
+        instance: _assertThisInitialized(_this),
+        isScrolling: false,
+        scrollDirection: "forward",
+        scrollOffset: typeof _this.props.initialScrollOffset === "number" ? _this.props.initialScrollOffset : 0,
+        scrollUpdateWasRequested: false
+      };
+      _this._callOnItemsRendered = void 0;
+      _this._callOnItemsRendered = memoize_one_esm_default(function(overscanStartIndex, overscanStopIndex, visibleStartIndex, visibleStopIndex) {
+        return _this.props.onItemsRendered({
+          overscanStartIndex,
+          overscanStopIndex,
+          visibleStartIndex,
+          visibleStopIndex
+        });
+      });
+      _this._callOnScroll = void 0;
+      _this._callOnScroll = memoize_one_esm_default(function(scrollDirection, scrollOffset, scrollUpdateWasRequested) {
+        return _this.props.onScroll({
+          scrollDirection,
+          scrollOffset,
+          scrollUpdateWasRequested
+        });
+      });
+      _this._getItemStyle = void 0;
+      _this._getItemStyle = function(index) {
+        var _this$props = _this.props, direction = _this$props.direction, itemSize = _this$props.itemSize, layout = _this$props.layout;
+        var itemStyleCache = _this._getItemStyleCache(shouldResetStyleCacheOnItemSizeChange && itemSize, shouldResetStyleCacheOnItemSizeChange && layout, shouldResetStyleCacheOnItemSizeChange && direction);
+        var style;
+        if (itemStyleCache.hasOwnProperty(index)) {
+          style = itemStyleCache[index];
+        } else {
+          var _offset = getItemOffset2(_this.props, index, _this._instanceProps);
+          var size2 = getItemSize2(_this.props, index, _this._instanceProps);
+          var isHorizontal = direction === "horizontal" || layout === "horizontal";
+          var isRtl = direction === "rtl";
+          var offsetHorizontal = isHorizontal ? _offset : 0;
+          itemStyleCache[index] = style = {
+            position: "absolute",
+            left: isRtl ? void 0 : offsetHorizontal,
+            right: isRtl ? offsetHorizontal : void 0,
+            top: !isHorizontal ? _offset : 0,
+            height: !isHorizontal ? size2 : "100%",
+            width: isHorizontal ? size2 : "100%"
+          };
+        }
+        return style;
+      };
+      _this._getItemStyleCache = void 0;
+      _this._getItemStyleCache = memoize_one_esm_default(function(_, __, ___) {
+        return {};
+      });
+      _this._onScrollHorizontal = function(event) {
+        var _event$currentTarget = event.currentTarget, clientWidth = _event$currentTarget.clientWidth, scrollLeft = _event$currentTarget.scrollLeft, scrollWidth = _event$currentTarget.scrollWidth;
+        _this.setState(function(prevState) {
+          if (prevState.scrollOffset === scrollLeft) {
+            return null;
+          }
+          var direction = _this.props.direction;
+          var scrollOffset = scrollLeft;
+          if (direction === "rtl") {
+            switch (getRTLOffsetType()) {
+              case "negative":
+                scrollOffset = -scrollLeft;
+                break;
+              case "positive-descending":
+                scrollOffset = scrollWidth - clientWidth - scrollLeft;
+                break;
+            }
+          }
+          scrollOffset = Math.max(0, Math.min(scrollOffset, scrollWidth - clientWidth));
+          return {
+            isScrolling: true,
+            scrollDirection: prevState.scrollOffset < scrollOffset ? "forward" : "backward",
+            scrollOffset,
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+      _this._onScrollVertical = function(event) {
+        var _event$currentTarget2 = event.currentTarget, clientHeight = _event$currentTarget2.clientHeight, scrollHeight = _event$currentTarget2.scrollHeight, scrollTop = _event$currentTarget2.scrollTop;
+        _this.setState(function(prevState) {
+          if (prevState.scrollOffset === scrollTop) {
+            return null;
+          }
+          var scrollOffset = Math.max(0, Math.min(scrollTop, scrollHeight - clientHeight));
+          return {
+            isScrolling: true,
+            scrollDirection: prevState.scrollOffset < scrollOffset ? "forward" : "backward",
+            scrollOffset,
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+      _this._outerRefSetter = function(ref) {
+        var outerRef = _this.props.outerRef;
+        _this._outerRef = ref;
+        if (typeof outerRef === "function") {
+          outerRef(ref);
+        } else if (outerRef != null && typeof outerRef === "object" && outerRef.hasOwnProperty("current")) {
+          outerRef.current = ref;
+        }
+      };
+      _this._resetIsScrollingDebounced = function() {
+        if (_this._resetIsScrollingTimeoutId !== null) {
+          cancelTimeout(_this._resetIsScrollingTimeoutId);
+        }
+        _this._resetIsScrollingTimeoutId = requestTimeout(_this._resetIsScrolling, IS_SCROLLING_DEBOUNCE_INTERVAL$1);
+      };
+      _this._resetIsScrolling = function() {
+        _this._resetIsScrollingTimeoutId = null;
+        _this.setState({
+          isScrolling: false
+        }, function() {
+          _this._getItemStyleCache(-1, null);
+        });
+      };
+      return _this;
+    }
+    List.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
+      validateSharedProps$1(nextProps, prevState);
+      validateProps2(nextProps);
+      return null;
+    };
+    var _proto = List.prototype;
+    _proto.scrollTo = function scrollTo(scrollOffset) {
+      scrollOffset = Math.max(0, scrollOffset);
+      this.setState(function(prevState) {
+        if (prevState.scrollOffset === scrollOffset) {
+          return null;
+        }
+        return {
+          scrollDirection: prevState.scrollOffset < scrollOffset ? "forward" : "backward",
+          scrollOffset,
+          scrollUpdateWasRequested: true
+        };
+      }, this._resetIsScrollingDebounced);
+    };
+    _proto.scrollToItem = function scrollToItem(index, align) {
+      if (align === void 0) {
+        align = "auto";
+      }
+      var _this$props2 = this.props, itemCount = _this$props2.itemCount, layout = _this$props2.layout;
+      var scrollOffset = this.state.scrollOffset;
+      index = Math.max(0, Math.min(index, itemCount - 1));
+      var scrollbarSize = 0;
+      if (this._outerRef) {
+        var outerRef = this._outerRef;
+        if (layout === "vertical") {
+          scrollbarSize = outerRef.scrollWidth > outerRef.clientWidth ? getScrollbarSize() : 0;
+        } else {
+          scrollbarSize = outerRef.scrollHeight > outerRef.clientHeight ? getScrollbarSize() : 0;
+        }
+      }
+      this.scrollTo(getOffsetForIndexAndAlignment2(this.props, index, align, scrollOffset, this._instanceProps, scrollbarSize));
+    };
+    _proto.componentDidMount = function componentDidMount() {
+      var _this$props3 = this.props, direction = _this$props3.direction, initialScrollOffset = _this$props3.initialScrollOffset, layout = _this$props3.layout;
+      if (typeof initialScrollOffset === "number" && this._outerRef != null) {
+        var outerRef = this._outerRef;
+        if (direction === "horizontal" || layout === "horizontal") {
+          outerRef.scrollLeft = initialScrollOffset;
+        } else {
+          outerRef.scrollTop = initialScrollOffset;
+        }
+      }
+      this._callPropsCallbacks();
+    };
+    _proto.componentDidUpdate = function componentDidUpdate() {
+      var _this$props4 = this.props, direction = _this$props4.direction, layout = _this$props4.layout;
+      var _this$state = this.state, scrollOffset = _this$state.scrollOffset, scrollUpdateWasRequested = _this$state.scrollUpdateWasRequested;
+      if (scrollUpdateWasRequested && this._outerRef != null) {
+        var outerRef = this._outerRef;
+        if (direction === "horizontal" || layout === "horizontal") {
+          if (direction === "rtl") {
+            switch (getRTLOffsetType()) {
+              case "negative":
+                outerRef.scrollLeft = -scrollOffset;
+                break;
+              case "positive-ascending":
+                outerRef.scrollLeft = scrollOffset;
+                break;
+              default:
+                var clientWidth = outerRef.clientWidth, scrollWidth = outerRef.scrollWidth;
+                outerRef.scrollLeft = scrollWidth - clientWidth - scrollOffset;
+                break;
+            }
+          } else {
+            outerRef.scrollLeft = scrollOffset;
+          }
+        } else {
+          outerRef.scrollTop = scrollOffset;
+        }
+      }
+      this._callPropsCallbacks();
+    };
+    _proto.componentWillUnmount = function componentWillUnmount() {
+      if (this._resetIsScrollingTimeoutId !== null) {
+        cancelTimeout(this._resetIsScrollingTimeoutId);
+      }
+    };
+    _proto.render = function render() {
+      var _this$props5 = this.props, children = _this$props5.children, className = _this$props5.className, direction = _this$props5.direction, height = _this$props5.height, innerRef = _this$props5.innerRef, innerElementType = _this$props5.innerElementType, innerTagName = _this$props5.innerTagName, itemCount = _this$props5.itemCount, itemData = _this$props5.itemData, _this$props5$itemKey = _this$props5.itemKey, itemKey = _this$props5$itemKey === void 0 ? defaultItemKey$1 : _this$props5$itemKey, layout = _this$props5.layout, outerElementType = _this$props5.outerElementType, outerTagName = _this$props5.outerTagName, style = _this$props5.style, useIsScrolling = _this$props5.useIsScrolling, width = _this$props5.width;
+      var isScrolling = this.state.isScrolling;
+      var isHorizontal = direction === "horizontal" || layout === "horizontal";
+      var onScroll = isHorizontal ? this._onScrollHorizontal : this._onScrollVertical;
+      var _this$_getRangeToRend = this._getRangeToRender(), startIndex = _this$_getRangeToRend[0], stopIndex = _this$_getRangeToRend[1];
+      var items = [];
+      if (itemCount > 0) {
+        for (var _index = startIndex; _index <= stopIndex; _index++) {
+          items.push((0, import_react.createElement)(children, {
+            data: itemData,
+            key: itemKey(_index, itemData),
+            index: _index,
+            isScrolling: useIsScrolling ? isScrolling : void 0,
+            style: this._getItemStyle(_index)
+          }));
+        }
+      }
+      var estimatedTotalSize = getEstimatedTotalSize2(this.props, this._instanceProps);
+      return (0, import_react.createElement)(outerElementType || outerTagName || "div", {
+        className,
+        onScroll,
+        ref: this._outerRefSetter,
+        style: _extends({
+          position: "relative",
+          height,
+          width,
+          overflow: "auto",
+          WebkitOverflowScrolling: "touch",
+          willChange: "transform",
+          direction
+        }, style)
+      }, (0, import_react.createElement)(innerElementType || innerTagName || "div", {
+        children: items,
+        ref: innerRef,
+        style: {
+          height: isHorizontal ? "100%" : estimatedTotalSize,
+          pointerEvents: isScrolling ? "none" : void 0,
+          width: isHorizontal ? estimatedTotalSize : "100%"
+        }
+      }));
+    };
+    _proto._callPropsCallbacks = function _callPropsCallbacks() {
+      if (typeof this.props.onItemsRendered === "function") {
+        var itemCount = this.props.itemCount;
+        if (itemCount > 0) {
+          var _this$_getRangeToRend2 = this._getRangeToRender(), _overscanStartIndex = _this$_getRangeToRend2[0], _overscanStopIndex = _this$_getRangeToRend2[1], _visibleStartIndex = _this$_getRangeToRend2[2], _visibleStopIndex = _this$_getRangeToRend2[3];
+          this._callOnItemsRendered(_overscanStartIndex, _overscanStopIndex, _visibleStartIndex, _visibleStopIndex);
+        }
+      }
+      if (typeof this.props.onScroll === "function") {
+        var _this$state2 = this.state, _scrollDirection = _this$state2.scrollDirection, _scrollOffset = _this$state2.scrollOffset, _scrollUpdateWasRequested = _this$state2.scrollUpdateWasRequested;
+        this._callOnScroll(_scrollDirection, _scrollOffset, _scrollUpdateWasRequested);
+      }
+    };
+    _proto._getRangeToRender = function _getRangeToRender() {
+      var _this$props6 = this.props, itemCount = _this$props6.itemCount, overscanCount = _this$props6.overscanCount;
+      var _this$state3 = this.state, isScrolling = _this$state3.isScrolling, scrollDirection = _this$state3.scrollDirection, scrollOffset = _this$state3.scrollOffset;
+      if (itemCount === 0) {
+        return [0, 0, 0, 0];
+      }
+      var startIndex = getStartIndexForOffset2(this.props, scrollOffset, this._instanceProps);
+      var stopIndex = getStopIndexForStartIndex2(this.props, startIndex, scrollOffset, this._instanceProps);
+      var overscanBackward = !isScrolling || scrollDirection === "backward" ? Math.max(1, overscanCount) : 1;
+      var overscanForward = !isScrolling || scrollDirection === "forward" ? Math.max(1, overscanCount) : 1;
+      return [Math.max(0, startIndex - overscanBackward), Math.max(0, Math.min(itemCount - 1, stopIndex + overscanForward)), startIndex, stopIndex];
+    };
+    return List;
+  })(import_react.PureComponent), _class.defaultProps = {
+    direction: "ltr",
+    itemData: void 0,
+    layout: "vertical",
+    overscanCount: 2,
+    useIsScrolling: false
+  }, _class;
+}
+var validateSharedProps$1 = function validateSharedProps(_ref2, _ref3) {
+  var children = _ref2.children, direction = _ref2.direction, height = _ref2.height, layout = _ref2.layout, innerTagName = _ref2.innerTagName, outerTagName = _ref2.outerTagName, width = _ref2.width;
+  var instance = _ref3.instance;
+  if (true) {
+    if (innerTagName != null || outerTagName != null) {
+      if (devWarningsTagName$1 && !devWarningsTagName$1.has(instance)) {
+        devWarningsTagName$1.add(instance);
+        console.warn("The innerTagName and outerTagName props have been deprecated. Please use the innerElementType and outerElementType props instead.");
+      }
+    }
+    var isHorizontal = direction === "horizontal" || layout === "horizontal";
+    switch (direction) {
+      case "horizontal":
+      case "vertical":
+        if (devWarningsDirection && !devWarningsDirection.has(instance)) {
+          devWarningsDirection.add(instance);
+          console.warn('The direction prop should be either "ltr" (default) or "rtl". Please use the layout prop to specify "vertical" (default) or "horizontal" orientation.');
+        }
+        break;
+      case "ltr":
+      case "rtl":
+        break;
+      default:
+        throw Error('An invalid "direction" prop has been specified. Value should be either "ltr" or "rtl". ' + ('"' + direction + '" was specified.'));
+    }
+    switch (layout) {
+      case "horizontal":
+      case "vertical":
+        break;
+      default:
+        throw Error('An invalid "layout" prop has been specified. Value should be either "horizontal" or "vertical". ' + ('"' + layout + '" was specified.'));
+    }
+    if (children == null) {
+      throw Error('An invalid "children" prop has been specified. Value should be a React component. ' + ('"' + (children === null ? "null" : typeof children) + '" was specified.'));
+    }
+    if (isHorizontal && typeof width !== "number") {
+      throw Error('An invalid "width" prop has been specified. Horizontal lists must specify a number for width. ' + ('"' + (width === null ? "null" : typeof width) + '" was specified.'));
+    } else if (!isHorizontal && typeof height !== "number") {
+      throw Error('An invalid "height" prop has been specified. Vertical lists must specify a number for height. ' + ('"' + (height === null ? "null" : typeof height) + '" was specified.'));
+    }
+  }
+};
+var FixedSizeList = /* @__PURE__ */ createListComponent({
+  getItemOffset: function getItemOffset(_ref, index) {
+    var itemSize = _ref.itemSize;
+    return index * itemSize;
+  },
+  getItemSize: function getItemSize(_ref2, index) {
+    var itemSize = _ref2.itemSize;
+    return itemSize;
+  },
+  getEstimatedTotalSize: function getEstimatedTotalSize(_ref3) {
+    var itemCount = _ref3.itemCount, itemSize = _ref3.itemSize;
+    return itemSize * itemCount;
+  },
+  getOffsetForIndexAndAlignment: function getOffsetForIndexAndAlignment(_ref4, index, align, scrollOffset, instanceProps, scrollbarSize) {
+    var direction = _ref4.direction, height = _ref4.height, itemCount = _ref4.itemCount, itemSize = _ref4.itemSize, layout = _ref4.layout, width = _ref4.width;
+    var isHorizontal = direction === "horizontal" || layout === "horizontal";
+    var size2 = isHorizontal ? width : height;
+    var lastItemOffset = Math.max(0, itemCount * itemSize - size2);
+    var maxOffset = Math.min(lastItemOffset, index * itemSize);
+    var minOffset = Math.max(0, index * itemSize - size2 + itemSize + scrollbarSize);
+    if (align === "smart") {
+      if (scrollOffset >= minOffset - size2 && scrollOffset <= maxOffset + size2) {
+        align = "auto";
+      } else {
+        align = "center";
+      }
+    }
+    switch (align) {
+      case "start":
+        return maxOffset;
+      case "end":
+        return minOffset;
+      case "center": {
+        var middleOffset = Math.round(minOffset + (maxOffset - minOffset) / 2);
+        if (middleOffset < Math.ceil(size2 / 2)) {
+          return 0;
+        } else if (middleOffset > lastItemOffset + Math.floor(size2 / 2)) {
+          return lastItemOffset;
+        } else {
+          return middleOffset;
+        }
+      }
+      case "auto":
+      default:
+        if (scrollOffset >= minOffset && scrollOffset <= maxOffset) {
+          return scrollOffset;
+        } else if (scrollOffset < minOffset) {
+          return minOffset;
+        } else {
+          return maxOffset;
+        }
+    }
+  },
+  getStartIndexForOffset: function getStartIndexForOffset(_ref5, offset) {
+    var itemCount = _ref5.itemCount, itemSize = _ref5.itemSize;
+    return Math.max(0, Math.min(itemCount - 1, Math.floor(offset / itemSize)));
+  },
+  getStopIndexForStartIndex: function getStopIndexForStartIndex(_ref6, startIndex, scrollOffset) {
+    var direction = _ref6.direction, height = _ref6.height, itemCount = _ref6.itemCount, itemSize = _ref6.itemSize, layout = _ref6.layout, width = _ref6.width;
+    var isHorizontal = direction === "horizontal" || layout === "horizontal";
+    var offset = startIndex * itemSize;
+    var size2 = isHorizontal ? width : height;
+    var numVisibleItems = Math.ceil((size2 + scrollOffset - offset) / itemSize);
+    return Math.max(0, Math.min(
+      itemCount - 1,
+      startIndex + numVisibleItems - 1
+      // -1 is because stop index is inclusive
+    ));
+  },
+  initInstanceProps: function initInstanceProps(props) {
+  },
+  shouldResetStyleCacheOnItemSizeChange: true,
+  validateProps: function validateProps(_ref7) {
+    var itemSize = _ref7.itemSize;
+    if (true) {
+      if (typeof itemSize !== "number") {
+        throw Error('An invalid "itemSize" prop has been specified. Value should be a number. ' + ('"' + (itemSize === null ? "null" : typeof itemSize) + '" was specified.'));
+      }
+    }
+  }
+});
+
+// src/frontend/components/BoardColumn.tsx
+var CARD_HEIGHT = 160;
+var TaskCard = (0, import_react2.memo)(function TaskCard2({ t, onEdit, onMove }) {
+  return /* @__PURE__ */ import_react2.default.createElement("div", { className: "card", style: { margin: "0 10px" }, onClick: () => onEdit(t) }, /* @__PURE__ */ import_react2.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react2.default.createElement("div", { className: "card-title" }, t.header || t.title), /* @__PURE__ */ import_react2.default.createElement("span", { className: `pill ${t.assignee === "agent" ? "agent" : "user"}` }, t.assignee === "agent" ? "SGAi" : "Stefan")), t.description ? /* @__PURE__ */ import_react2.default.createElement("div", { className: "meta" }, t.description) : null, /* @__PURE__ */ import_react2.default.createElement("div", { className: "actions" }, /* @__PURE__ */ import_react2.default.createElement("button", { onClick: (e) => {
+    e.stopPropagation();
+    onMove(t.id, "queue");
+  } }, "Queue"), /* @__PURE__ */ import_react2.default.createElement("button", { onClick: (e) => {
+    e.stopPropagation();
+    onMove(t.id, "in_progress");
+  } }, "Start"), /* @__PURE__ */ import_react2.default.createElement("button", { onClick: (e) => {
+    e.stopPropagation();
+    onMove(t.id, "done");
+  } }, "Done")));
+});
+function BoardColumn({ label, tasks, onEdit, onMove }) {
+  const height = Math.min(560, Math.max(220, tasks.length * CARD_HEIGHT));
+  return /* @__PURE__ */ import_react2.default.createElement("section", { className: "col" }, /* @__PURE__ */ import_react2.default.createElement("div", { className: "col-head" }, /* @__PURE__ */ import_react2.default.createElement("span", null, label), /* @__PURE__ */ import_react2.default.createElement("span", { className: "count" }, tasks.length)), /* @__PURE__ */ import_react2.default.createElement("div", { className: "cards", style: { padding: 0 } }, /* @__PURE__ */ import_react2.default.createElement(FixedSizeList, { height, itemCount: tasks.length, itemSize: CARD_HEIGHT, width: "100%" }, ({ index, style }) => /* @__PURE__ */ import_react2.default.createElement("div", { style }, /* @__PURE__ */ import_react2.default.createElement(TaskCard, { t: tasks[index], onEdit, onMove }))), tasks.length === 0 ? /* @__PURE__ */ import_react2.default.createElement("div", { className: "meta", style: { padding: 10 } }, "Keine Tasks") : null));
+}
+
+// src/frontend/components/BriefingSection.tsx
+var import_react3 = __toESM(require_react());
+function BriefingSection({ briefing }) {
+  return /* @__PURE__ */ import_react3.default.createElement("section", { className: "col", style: { marginBottom: 12, minHeight: "auto" } }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "col-head" }, /* @__PURE__ */ import_react3.default.createElement("span", null, "\u{1F4C5} Briefing"), /* @__PURE__ */ import_react3.default.createElement("span", { className: "count" }, "live")), /* @__PURE__ */ import_react3.default.createElement("div", { className: "cards" }, /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("strong", null, "Heute (", briefing.today.length, ")"), briefing.today.map((e, i) => /* @__PURE__ */ import_react3.default.createElement("div", { className: "meta", key: i }, new Date(e.start).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }), " \xB7 ", e.title))), /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("strong", null, "Morgen (", briefing.tomorrow.length, ")"), briefing.tomorrow.map((e, i) => /* @__PURE__ */ import_react3.default.createElement("div", { className: "meta", key: i }, new Date(e.start).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }), " \xB7 ", e.title)))));
+}
+
+// src/frontend/components/TaskModal.tsx
+var import_react4 = __toESM(require_react());
+
+// src/frontend/utils.ts
+var nowIso = () => (/* @__PURE__ */ new Date()).toISOString();
+var fmt = (iso) => new Date(iso).toLocaleString("de-DE");
+var newId = () => crypto?.randomUUID?.() || `t-${Date.now()}`;
+var parseImageLines = (raw = "") => raw.split("\n").map((s) => s.trim()).filter(Boolean);
+
+// src/frontend/components/TaskModal.tsx
+function TaskModal({ title, task, onClose, onSave, onDelete, onUpload }) {
+  const [header, setHeader] = (0, import_react4.useState)(task?.header || task?.title || "");
+  const [description, setDescription] = (0, import_react4.useState)(task?.description || "");
+  const [assignee, setAssignee] = (0, import_react4.useState)(task?.assignee || "agent");
+  const [dueAt, setDueAt] = (0, import_react4.useState)(task?.dueAt ? new Date(task.dueAt).toISOString().slice(0, 16) : "");
+  const [imageText, setImageText] = (0, import_react4.useState)((task?.imageUrls || []).join("\n"));
+  const [comments, setComments] = (0, import_react4.useState)(task?.comments || []);
+  const [commentInput, setCommentInput] = (0, import_react4.useState)("");
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "modal open", onClick: (e) => e.target === e.currentTarget && onClose() }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "modal-card" }, /* @__PURE__ */ import_react4.default.createElement("h3", { style: { marginTop: 0 } }, title), /* @__PURE__ */ import_react4.default.createElement("div", { className: "modal-grid" }, /* @__PURE__ */ import_react4.default.createElement("input", { className: "full", value: header, onChange: (e) => setHeader(e.target.value), placeholder: "Header" }), /* @__PURE__ */ import_react4.default.createElement("textarea", { className: "full", value: description, onChange: (e) => setDescription(e.target.value), placeholder: "Description" }), /* @__PURE__ */ import_react4.default.createElement("textarea", { className: "full", value: imageText, onChange: (e) => setImageText(e.target.value), placeholder: "Image URLs" }), /* @__PURE__ */ import_react4.default.createElement("input", { className: "full", type: "file", accept: "image/*", multiple: true, onChange: async (e) => {
+    const urls = await onUpload(e.currentTarget.files);
+    setImageText((v) => [...parseImageLines(v), ...urls].join("\n"));
+  } }), /* @__PURE__ */ import_react4.default.createElement("select", { value: assignee, onChange: (e) => setAssignee(e.target.value) }, /* @__PURE__ */ import_react4.default.createElement("option", { value: "agent" }, "SGAi (Agent)"), /* @__PURE__ */ import_react4.default.createElement("option", { value: "user" }, "Stefan (User)")), /* @__PURE__ */ import_react4.default.createElement("input", { type: "datetime-local", value: dueAt, onChange: (e) => setDueAt(e.target.value) })), task ? /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("div", { className: "modal-grid", style: { marginTop: 10 } }, /* @__PURE__ */ import_react4.default.createElement("input", { className: "full", value: commentInput, onChange: (e) => setCommentInput(e.target.value), placeholder: "Kommentar" }), /* @__PURE__ */ import_react4.default.createElement("button", { onClick: () => {
+    if (!commentInput.trim()) return;
+    setComments([...comments, { at: nowIso(), author: "agent", text: commentInput.trim() }]);
+    setCommentInput("");
+  } }, "Kommentar hinzuf\xFCgen")), /* @__PURE__ */ import_react4.default.createElement("div", { className: "meta", style: { maxHeight: 180, overflow: "auto", marginTop: 8, border: "1px solid var(--line)", borderRadius: 8, padding: 8 } }, comments.slice().reverse().map((c, i) => /* @__PURE__ */ import_react4.default.createElement("div", { key: i }, /* @__PURE__ */ import_react4.default.createElement("strong", null, c.author || "agent"), " \xB7 ", fmt(c.at), /* @__PURE__ */ import_react4.default.createElement("br", null), c.text || "")))) : null, /* @__PURE__ */ import_react4.default.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "space-between", marginTop: 12 } }, task ? /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn-danger", onClick: onDelete }, "Delete") : /* @__PURE__ */ import_react4.default.createElement("span", null), /* @__PURE__ */ import_react4.default.createElement("div", { style: { display: "flex", gap: 8 } }, /* @__PURE__ */ import_react4.default.createElement("button", { onClick: onClose }, "Abbrechen"), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn-primary", onClick: () => onSave({ header, description, assignee, dueAt: dueAt ? new Date(dueAt).toISOString() : null, imageUrls: parseImageLines(imageText), comments }) }, "Speichern")))));
+}
+
+// src/frontend/types.ts
 var COLUMNS = [
   { id: "scheduled", label: "Scheduled" },
   { id: "queue", label: "Queue" },
   { id: "in_progress", label: "In Progress" },
   { id: "done", label: "Done" }
 ];
-var nowIso = () => (/* @__PURE__ */ new Date()).toISOString();
-var fmt = (iso) => new Date(iso).toLocaleString("de-DE");
-var newId = () => crypto?.randomUUID?.() || `t-${Date.now()}`;
-var parseImageLines = (raw = "") => raw.split("\n").map((s) => s.trim()).filter(Boolean);
-var escapeHtml = (s = "") => s.replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[m]);
+
+// src/frontend/App.tsx
+var API = new URL("../api/tasks", window.location.href).toString();
+var UPLOAD_API = new URL("../api/upload-image", window.location.href).toString();
+var BRIEFING_TODAY_URL = "../data/calendar-sync/today.json";
+var BRIEFING_TOMORROW_URL = "../data/calendar-sync/tomorrow.json";
 function App() {
-  const [tasks, setTasks] = (0, import_react.useState)([]);
-  const [search, setSearch] = (0, import_react.useState)("");
-  const [showAdd, setShowAdd] = (0, import_react.useState)(false);
-  const [editing, setEditing] = (0, import_react.useState)(null);
-  const [briefing, setBriefing] = (0, import_react.useState)({ today: [], tomorrow: [] });
+  const [tasks, setTasks] = (0, import_react5.useState)([]);
+  const [search, setSearch] = (0, import_react5.useState)("");
+  const [showAdd, setShowAdd] = (0, import_react5.useState)(false);
+  const [editing, setEditing] = (0, import_react5.useState)(null);
+  const [briefing, setBriefing] = (0, import_react5.useState)({ today: [], tomorrow: [] });
   const loadTasks = async () => {
     const r = await fetch(API, { cache: "no-store" });
     const d = await r.json();
@@ -23625,7 +24268,7 @@ function App() {
     } catch {
     }
   };
-  (0, import_react.useEffect)(() => {
+  (0, import_react5.useEffect)(() => {
     loadTasks();
     loadBriefing();
     const i = setInterval(() => {
@@ -23634,12 +24277,18 @@ function App() {
     }, 5e3);
     return () => clearInterval(i);
   }, []);
-  const filtered = (0, import_react.useMemo)(() => {
+  const filtered = (0, import_react5.useMemo)(() => {
     const q = search.toLowerCase();
     return q ? tasks.filter((t) => `${t.header || t.title || ""} ${t.description || ""}`.toLowerCase().includes(q)) : tasks;
   }, [tasks, search]);
+  const grouped = (0, import_react5.useMemo)(() => {
+    const g = {};
+    for (const c of COLUMNS) g[c.id] = [];
+    for (const t of filtered) (g[t.status] ||= []).push(t);
+    return g;
+  }, [filtered]);
   const addTask = async (payload) => {
-    const now = nowIso();
+    const now2 = nowIso();
     const next = [{
       id: newId(),
       header: payload.header,
@@ -23650,10 +24299,10 @@ function App() {
       assignee: payload.assignee || "agent",
       dueAt: payload.dueAt || null,
       status: "scheduled",
-      createdAt: now,
-      updatedAt: now,
+      createdAt: now2,
+      updatedAt: now2,
       doneAt: null,
-      history: [{ from: null, to: "scheduled", at: now }]
+      history: [{ from: null, to: "scheduled", at: now2 }]
     }, ...tasks];
     await saveTasks(next);
     setShowAdd(false);
@@ -23674,16 +24323,7 @@ function App() {
     }
     return urls;
   };
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react.default.createElement("section", { className: "col", style: { marginBottom: 12, minHeight: "auto" } }, /* @__PURE__ */ import_react.default.createElement("div", { className: "col-head" }, /* @__PURE__ */ import_react.default.createElement("span", null, "\u{1F4C5} Briefing"), /* @__PURE__ */ import_react.default.createElement("span", { className: "count" }, "live")), /* @__PURE__ */ import_react.default.createElement("div", { className: "cards" }, /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Heute (", briefing.today.length, ")"), briefing.today.map((e, i) => /* @__PURE__ */ import_react.default.createElement("div", { className: "meta", key: i }, new Date(e.start).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }), " \xB7 ", e.title))), /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Morgen (", briefing.tomorrow.length, ")"), briefing.tomorrow.map((e, i) => /* @__PURE__ */ import_react.default.createElement("div", { className: "meta", key: i }, new Date(e.start).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }), " \xB7 ", e.title))))), /* @__PURE__ */ import_react.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react.default.createElement("section", { className: "col", key: col.id }, /* @__PURE__ */ import_react.default.createElement("div", { className: "col-head" }, /* @__PURE__ */ import_react.default.createElement("span", null, col.label), /* @__PURE__ */ import_react.default.createElement("span", { className: "count" }, filtered.filter((t) => t.status === col.id).length)), /* @__PURE__ */ import_react.default.createElement("div", { className: "cards" }, filtered.filter((t) => t.status === col.id).map((t) => /* @__PURE__ */ import_react.default.createElement("div", { key: t.id, className: "card", onClick: () => setEditing(t) }, /* @__PURE__ */ import_react.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "card-title" }, t.header || t.title), /* @__PURE__ */ import_react.default.createElement("span", { className: `pill ${t.assignee === "agent" ? "agent" : "user"}` }, t.assignee === "agent" ? "SGAi" : "Stefan")), t.description ? /* @__PURE__ */ import_react.default.createElement("div", { className: "meta" }, t.description) : null, /* @__PURE__ */ import_react.default.createElement("div", { className: "actions" }, /* @__PURE__ */ import_react.default.createElement("button", { onClick: (e) => {
-    e.stopPropagation();
-    moveTask(t.id, "queue");
-  } }, "Queue"), /* @__PURE__ */ import_react.default.createElement("button", { onClick: (e) => {
-    e.stopPropagation();
-    moveTask(t.id, "in_progress");
-  } }, "Start"), /* @__PURE__ */ import_react.default.createElement("button", { onClick: (e) => {
-    e.stopPropagation();
-    moveTask(t.id, "done");
-  } }, "Done")))))))), showAdd && /* @__PURE__ */ import_react.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
+  return /* @__PURE__ */ import_react5.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react5.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react5.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react5.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react5.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react5.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react5.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react5.default.createElement(BoardColumn, { key: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing, onMove: moveTask }))), showAdd && /* @__PURE__ */ import_react5.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react5.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
     const next = tasks.map((t) => t.id !== editing.id ? t : { ...t, header: p.header, title: p.header, description: p.description, imageUrls: p.imageUrls, dueAt: p.dueAt, assignee: p.assignee, comments: p.comments || t.comments || [], updatedAt: nowIso() });
     await saveTasks(next);
     setEditing(null);
@@ -23692,26 +24332,9 @@ function App() {
     setEditing(null);
   } }));
 }
-function TaskModal({ title, task, onClose, onSave, onDelete, onUpload }) {
-  const [header, setHeader] = (0, import_react.useState)(task?.header || task?.title || "");
-  const [description, setDescription] = (0, import_react.useState)(task?.description || "");
-  const [assignee, setAssignee] = (0, import_react.useState)(task?.assignee || "agent");
-  const [dueAt, setDueAt] = (0, import_react.useState)(task?.dueAt ? new Date(task.dueAt).toISOString().slice(0, 16) : "");
-  const [imageText, setImageText] = (0, import_react.useState)((task?.imageUrls || []).join("\n"));
-  const [comments, setComments] = (0, import_react.useState)(task?.comments || []);
-  const [commentInput, setCommentInput] = (0, import_react.useState)("");
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: "modal open", onClick: (e) => e.target === e.currentTarget && onClose() }, /* @__PURE__ */ import_react.default.createElement("div", { className: "modal-card" }, /* @__PURE__ */ import_react.default.createElement("h3", { style: { marginTop: 0 } }, title), /* @__PURE__ */ import_react.default.createElement("div", { className: "modal-grid" }, /* @__PURE__ */ import_react.default.createElement("input", { className: "full", value: header, onChange: (e) => setHeader(e.target.value), placeholder: "Header" }), /* @__PURE__ */ import_react.default.createElement("textarea", { className: "full", value: description, onChange: (e) => setDescription(e.target.value), placeholder: "Description" }), /* @__PURE__ */ import_react.default.createElement("textarea", { className: "full", value: imageText, onChange: (e) => setImageText(e.target.value), placeholder: "Image URLs" }), /* @__PURE__ */ import_react.default.createElement("input", { className: "full", type: "file", accept: "image/*", multiple: true, onChange: async (e) => {
-    const urls = await onUpload(e.currentTarget.files);
-    setImageText((v) => [...parseImageLines(v), ...urls].join("\n"));
-  } }), /* @__PURE__ */ import_react.default.createElement("select", { value: assignee, onChange: (e) => setAssignee(e.target.value) }, /* @__PURE__ */ import_react.default.createElement("option", { value: "agent" }, "SGAi (Agent)"), /* @__PURE__ */ import_react.default.createElement("option", { value: "user" }, "Stefan (User)")), /* @__PURE__ */ import_react.default.createElement("input", { type: "datetime-local", value: dueAt, onChange: (e) => setDueAt(e.target.value) })), task ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", { className: "modal-grid", style: { marginTop: 10 } }, /* @__PURE__ */ import_react.default.createElement("input", { className: "full", value: commentInput, onChange: (e) => setCommentInput(e.target.value), placeholder: "Kommentar" }), /* @__PURE__ */ import_react.default.createElement("button", { onClick: () => {
-    if (!commentInput.trim()) return;
-    setComments([...comments, { at: nowIso(), author: "agent", text: commentInput.trim() }]);
-    setCommentInput("");
-  } }, "Kommentar hinzuf\xFCgen")), /* @__PURE__ */ import_react.default.createElement("div", { className: "meta", style: { maxHeight: 120, overflow: "auto", marginTop: 8, border: "1px solid var(--line)", borderRadius: 8, padding: 8 } }, comments.slice().reverse().map((c, i) => /* @__PURE__ */ import_react.default.createElement("div", { key: i }, /* @__PURE__ */ import_react.default.createElement("strong", null, c.author || "agent"), " \xB7 ", fmt(c.at), /* @__PURE__ */ import_react.default.createElement("br", null), escapeHtml(c.text || ""))))) : null, /* @__PURE__ */ import_react.default.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "space-between", marginTop: 12 } }, task ? /* @__PURE__ */ import_react.default.createElement("button", { className: "btn-danger", onClick: onDelete }, "Delete") : /* @__PURE__ */ import_react.default.createElement("span", null), /* @__PURE__ */ import_react.default.createElement("div", { style: { display: "flex", gap: 8 } }, /* @__PURE__ */ import_react.default.createElement("button", { onClick: onClose }, "Abbrechen"), /* @__PURE__ */ import_react.default.createElement("button", { className: "btn-primary", onClick: () => onSave({ header, description, assignee, dueAt: dueAt ? new Date(dueAt).toISOString() : null, imageUrls: parseImageLines(imageText), comments }) }, "Speichern")))));
-}
 
 // src/frontend/main.tsx
-(0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react2.default.createElement(App, null));
+(0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react6.default.createElement(App, null));
 /*! Bundled license information:
 
 react/cjs/react.development.js:
