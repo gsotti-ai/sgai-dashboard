@@ -9,7 +9,6 @@ const DATA_DIR = path.join(ROOT, 'data', 'task-board');
 const TASKS_FILE = path.join(DATA_DIR, 'tasks.json');
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const DASHBOARD_DIR = path.join(ROOT, 'dashboard');
-const DIST_DIR = path.join(ROOT, 'dist');
 
 const ALLOWED = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
 
@@ -37,10 +36,6 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 12 
 app.use(express.json({ limit: '2mb' }));
 app.use('/data', express.static(path.join(ROOT, 'data')));
 app.use('/dashboard', express.static(DASHBOARD_DIR));
-
-app.get('/dashboard/app.js', (_req, res) => {
-  res.sendFile(path.join(DIST_DIR, 'dashboard.js'));
-});
 
 app.get('/api/tasks', (_req, res) => {
   res.json(loadTasks());
