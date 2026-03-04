@@ -3,15 +3,17 @@
 Lightweight task dashboard for OpenClaw workflows.
 
 ## Features
-- Kanban-style task board
+- Kanban-style task board (React + touch-friendly drag & drop)
 - Briefing section (calendar summary)
 - Image attachments (drag & drop / file picker)
 - Task comments for progress tracking
-- Local JSON persistence + simple Python API server
+- Local JSON persistence + Node/TypeScript API server
 
 ## Run
 ```bash
-python3 scripts/task-board-server.py
+npm install
+npm run build
+npm start
 ```
 Then open:
 - http://127.0.0.1:18790/dashboard/
@@ -19,3 +21,4 @@ Then open:
 ## Notes
 - No tokens or secrets are stored in this repository.
 - Runtime data is ignored via `.gitignore`.
+- Python components were removed; this repo is Node/TypeScript only.

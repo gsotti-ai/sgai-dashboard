@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { DndContext, DragEndEvent, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { BoardColumn } from './components/BoardColumn';
 import { BriefingSection } from './components/BriefingSection';
 import { TaskModal } from './components/TaskModal';
@@ -16,6 +17,10 @@ export default function App() {
   const [showAdd, setShowAdd] = useState(false);
   const [editing, setEditing] = useState<Task | null>(null);
   const [briefing, setBriefing] = useState<{ today: any[]; tomorrow: any[] }>({ today: [], tomorrow: [] });
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
+  );
 
   const loadTasks = async () => {
     const r = await fetch(API, { cache: 'no-store' });
@@ -73,6 +78,15 @@ export default function App() {
     await saveTasks(next);
   };
 
+  const onDragEnd = async (event: DragEndEvent) => {
+    const activeId = String(event.active?.id || '');
+    const overId = String(event.over?.id || '');
+    if (!activeId.startsWith('task-') || !overId.startsWith('col-')) return;
+    const taskId = activeId.replace('task-', '');
+    const targetCol = overId.replace('col-', '');
+    await moveTask(taskId, targetCol);
+  };
+
   const removeTask = async (id: string) => saveTasks(tasks.filter(t => t.id !== id));
 
   const uploadFiles = async (files: FileList | null) => {
@@ -96,9 +110,11 @@ export default function App() {
 
     <BriefingSection briefing={briefing} />
 
-    <div className="board">
-      {COLUMNS.map(col => <BoardColumn key={col.id} label={col.label} tasks={grouped[col.id] || []} onEdit={setEditing} onMove={moveTask} />)}
-    </div>
+    <DndContext sensors={sensors} onDragEnd={onDragEnd}>
+      <div className="board">
+        {COLUMNS.map(col => <BoardColumn key={col.id} columnId={col.id} label={col.label} tasks={grouped[col.id] || []} onEdit={setEditing} />)}
+      </div>
+    </DndContext>
 
     {showAdd && <TaskModal title="Neuen Task anlegen" onClose={() => setShowAdd(false)} onSave={addTask} onUpload={uploadFiles} />}
     {editing && <TaskModal title="Task bearbeiten" task={editing} onClose={() => setEditing(null)} onUpload={uploadFiles} onSave={async (p) => {
