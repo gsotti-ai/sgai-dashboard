@@ -4,11 +4,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const ROOT = process.cwd();
-const DATA_DIR = path.join(ROOT, 'data', 'task-board');
+const REPO_ROOT = process.cwd();
+const WORKSPACE_ROOT = '/root/.openclaw/workspace';
+const DATA_DIR = path.join(WORKSPACE_ROOT, 'data', 'task-board');
 const TASKS_FILE = path.join(DATA_DIR, 'tasks.json');
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
-const DASHBOARD_DIR = path.join(ROOT, 'dashboard');
+const DASHBOARD_DIR = path.join(REPO_ROOT, 'dashboard');
 
 const ALLOWED = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
 
@@ -34,7 +35,7 @@ const app = express();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 12 * 1024 * 1024 } });
 
 app.use(express.json({ limit: '2mb' }));
-app.use('/data', express.static(path.join(ROOT, 'data')));
+app.use('/data', express.static(path.join(WORKSPACE_ROOT, 'data')));
 app.use('/dashboard', express.static(DASHBOARD_DIR));
 
 app.get('/api/tasks', (_req, res) => {
