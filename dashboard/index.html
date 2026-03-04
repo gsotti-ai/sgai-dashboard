@@ -30,7 +30,7 @@
     .btn-primary { background:#1d4ed8; border-color:#1e40af; cursor:pointer; }
 
     .board { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-    .col { background:var(--panel); border:1px solid var(--line); border-radius:14px; min-height:420px; display:flex; flex-direction:column; transition: box-shadow .2s ease, transform .2s ease; }
+    .col { background:var(--panel); border:1px solid var(--line); border-radius:14px; min-height:420px; display:flex; flex-direction:column; transition: box-shadow .2s ease, transform .2s ease; overflow: visible; }
     .col.drag-over { box-shadow: 0 0 0 2px #60a5fa66 inset; transform: translateY(-2px); }
     .col-head { padding:10px 12px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; font-weight:600; }
     .count { color: var(--muted); font-size:.85rem; }
