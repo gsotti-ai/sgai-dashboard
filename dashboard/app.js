@@ -9,9 +9,9 @@ var __commonJS = (cb, mod) => function __require() {
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    for (let key2 of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key2) && key2 !== except)
+        __defProp(to, key2, { get: () => from[key2], enumerable: !(desc = __getOwnPropDesc(from, key2)) || desc.enumerable });
   }
   return to;
 };
@@ -470,13 +470,13 @@ var require_react_development = __commonJS({
             }
           }
         }
-        var ReactElement = function(type, key, ref, self, source, owner, props) {
+        var ReactElement = function(type, key2, ref, self, source, owner, props) {
           var element = {
             // This tag allows us to uniquely identify this as a React Element
             $$typeof: REACT_ELEMENT_TYPE,
             // Built-in properties that belong on the element
             type,
-            key,
+            key: key2,
             ref,
             props,
             // Record the component responsible for creating this element.
@@ -512,7 +512,7 @@ var require_react_development = __commonJS({
         function createElement(type, config, children) {
           var propName;
           var props = {};
-          var key = null;
+          var key2 = null;
           var ref = null;
           var self = null;
           var source = null;
@@ -527,7 +527,7 @@ var require_react_development = __commonJS({
               {
                 checkKeyStringCoercion(config.key);
               }
-              key = "" + config.key;
+              key2 = "" + config.key;
             }
             self = config.__self === void 0 ? null : config.__self;
             source = config.__source === void 0 ? null : config.__source;
@@ -561,9 +561,9 @@ var require_react_development = __commonJS({
             }
           }
           {
-            if (key || ref) {
+            if (key2 || ref) {
               var displayName = typeof type === "function" ? type.displayName || type.name || "Unknown" : type;
-              if (key) {
+              if (key2) {
                 defineKeyPropWarningGetter(props, displayName);
               }
               if (ref) {
@@ -571,7 +571,7 @@ var require_react_development = __commonJS({
               }
             }
           }
-          return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
+          return ReactElement(type, key2, ref, self, source, ReactCurrentOwner.current, props);
         }
         function cloneAndReplaceKey(oldElement, newKey) {
           var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
@@ -583,7 +583,7 @@ var require_react_development = __commonJS({
           }
           var propName;
           var props = assign({}, element.props);
-          var key = element.key;
+          var key2 = element.key;
           var ref = element.ref;
           var self = element._self;
           var source = element._source;
@@ -597,7 +597,7 @@ var require_react_development = __commonJS({
               {
                 checkKeyStringCoercion(config.key);
               }
-              key = "" + config.key;
+              key2 = "" + config.key;
             }
             var defaultProps;
             if (element.type && element.type.defaultProps) {
@@ -623,20 +623,20 @@ var require_react_development = __commonJS({
             }
             props.children = childArray;
           }
-          return ReactElement(element.type, key, ref, self, source, owner, props);
+          return ReactElement(element.type, key2, ref, self, source, owner, props);
         }
         function isValidElement(object) {
           return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
         }
         var SEPARATOR = ".";
         var SUBSEPARATOR = ":";
-        function escape(key) {
+        function escape(key2) {
           var escapeRegex = /[=:]/g;
           var escaperLookup = {
             "=": "=0",
             ":": "=2"
           };
-          var escapedString = key.replace(escapeRegex, function(match) {
+          var escapedString = key2.replace(escapeRegex, function(match) {
             return escaperLookup[match];
           });
           return "$" + escapedString;
@@ -1565,10 +1565,10 @@ var require_react_development = __commonJS({
           {
             var keys = Object.keys(fragment.props);
             for (var i = 0; i < keys.length; i++) {
-              var key = keys[i];
-              if (key !== "children" && key !== "key") {
+              var key2 = keys[i];
+              if (key2 !== "children" && key2 !== "key") {
                 setCurrentlyValidatingElement$1(fragment);
-                error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
+                error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key2);
                 setCurrentlyValidatingElement$1(null);
                 break;
               }
@@ -4384,8 +4384,8 @@ var require_react_dom_development = __commonJS({
           strokeOpacity: true,
           strokeWidth: true
         };
-        function prefixKey(prefix2, key) {
-          return prefix2 + key.charAt(0).toUpperCase() + key.substring(1);
+        function prefixKey(prefix2, key2) {
+          return prefix2 + key2.charAt(0).toUpperCase() + key2.substring(1);
         }
         var prefixes = ["Webkit", "ms", "Moz", "O"];
         Object.keys(isUnitlessNumber).forEach(function(prop) {
@@ -4534,10 +4534,10 @@ var require_react_dom_development = __commonJS({
         }
         function expandShorthandMap(styles) {
           var expanded = {};
-          for (var key in styles) {
-            var longhands = shorthandToLonghand[key] || [key];
+          for (var key2 in styles) {
+            var longhands = shorthandToLonghand[key2] || [key2];
             for (var i = 0; i < longhands.length; i++) {
-              expanded[longhands[i]] = key;
+              expanded[longhands[i]] = key2;
             }
           }
           return expanded;
@@ -4550,9 +4550,9 @@ var require_react_dom_development = __commonJS({
             var expandedUpdates = expandShorthandMap(styleUpdates);
             var expandedStyles = expandShorthandMap(nextStyles);
             var warnedAbout = {};
-            for (var key in expandedUpdates) {
-              var originalKey = expandedUpdates[key];
-              var correctOriginalKey = expandedStyles[key];
+            for (var key2 in expandedUpdates) {
+              var originalKey = expandedUpdates[key2];
+              var correctOriginalKey = expandedStyles[key2];
               if (correctOriginalKey && originalKey !== correctOriginalKey) {
                 var warningKey = originalKey + "," + correctOriginalKey;
                 if (warnedAbout[warningKey]) {
@@ -5223,10 +5223,10 @@ var require_react_dom_development = __commonJS({
         function warnInvalidARIAProps(type, props) {
           {
             var invalidProps = [];
-            for (var key in props) {
-              var isValid = validateProperty(type, key);
+            for (var key2 in props) {
+              var isValid = validateProperty(type, key2);
               if (!isValid) {
-                invalidProps.push(key);
+                invalidProps.push(key2);
               }
             }
             var unknownPropString = invalidProps.map(function(prop) {
@@ -5366,10 +5366,10 @@ var require_react_dom_development = __commonJS({
         var warnUnknownProperties = function(type, props, eventRegistry) {
           {
             var unknownProps = [];
-            for (var key in props) {
-              var isValid = validateProperty$1(type, key, props[key], eventRegistry);
+            for (var key2 in props) {
+              var isValid = validateProperty$1(type, key2, props[key2], eventRegistry);
               if (!isValid) {
-                unknownProps.push(key);
+                unknownProps.push(key2);
               }
             }
             var unknownPropString = unknownProps.map(function(prop) {
@@ -5674,14 +5674,14 @@ var require_react_dom_development = __commonJS({
             throw new Error("clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.");
           }
         }
-        function get(key) {
-          return key._reactInternals;
+        function get(key2) {
+          return key2._reactInternals;
         }
-        function has(key) {
-          return key._reactInternals !== void 0;
+        function has(key2) {
+          return key2._reactInternals !== void 0;
         }
-        function set(key, value) {
-          key._reactInternals = value;
+        function set(key2, value) {
+          key2._reactInternals = value;
         }
         var NoFlags = (
           /*                      */
@@ -7256,9 +7256,9 @@ var require_react_dom_development = __commonJS({
           }
           return true;
         }
-        function attemptReplayContinuousQueuedEventInMap(queuedEvent, key, map) {
+        function attemptReplayContinuousQueuedEventInMap(queuedEvent, key2, map) {
           if (attemptReplayContinuousQueuedEvent(queuedEvent)) {
-            map.delete(key);
+            map.delete(key2);
           }
         }
         function replayUnblockedEvents() {
@@ -7854,9 +7854,9 @@ var require_react_dom_development = __commonJS({
         };
         function getEventKey(nativeEvent) {
           if (nativeEvent.key) {
-            var key = normalizeKey[nativeEvent.key] || nativeEvent.key;
-            if (key !== "Unidentified") {
-              return key;
+            var key2 = normalizeKey[nativeEvent.key] || nativeEvent.key;
+            if (key2 !== "Unidentified") {
+              return key2;
             }
           }
           if (nativeEvent.type === "keypress") {
@@ -10911,8 +10911,8 @@ var require_react_dom_development = __commonJS({
               return instance.__reactInternalMemoizedMaskedChildContext;
             }
             var context = {};
-            for (var key in contextTypes) {
-              context[key] = unmaskedContext[key];
+            for (var key2 in contextTypes) {
+              context[key2] = unmaskedContext[key2];
             }
             {
               var name = getComponentNameFromFiber(workInProgress2) || "Unknown";
@@ -12018,9 +12018,9 @@ var require_react_dom_development = __commonJS({
               return existing;
             }
           }
-          function updateFragment2(returnFiber, current2, fragment, lanes, key) {
+          function updateFragment2(returnFiber, current2, fragment, lanes, key2) {
             if (current2 === null || current2.tag !== Fragment) {
-              var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
+              var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key2);
               created.return = returnFiber;
               return created;
             } else {
@@ -12069,9 +12069,9 @@ var require_react_dom_development = __commonJS({
             return null;
           }
           function updateSlot(returnFiber, oldFiber, newChild, lanes) {
-            var key = oldFiber !== null ? oldFiber.key : null;
+            var key2 = oldFiber !== null ? oldFiber.key : null;
             if (typeof newChild === "string" && newChild !== "" || typeof newChild === "number") {
-              if (key !== null) {
+              if (key2 !== null) {
                 return null;
               }
               return updateTextNode(returnFiber, oldFiber, "" + newChild, lanes);
@@ -12079,14 +12079,14 @@ var require_react_dom_development = __commonJS({
             if (typeof newChild === "object" && newChild !== null) {
               switch (newChild.$$typeof) {
                 case REACT_ELEMENT_TYPE: {
-                  if (newChild.key === key) {
+                  if (newChild.key === key2) {
                     return updateElement(returnFiber, oldFiber, newChild, lanes);
                   } else {
                     return null;
                   }
                 }
                 case REACT_PORTAL_TYPE: {
-                  if (newChild.key === key) {
+                  if (newChild.key === key2) {
                     return updatePortal(returnFiber, oldFiber, newChild, lanes);
                   } else {
                     return null;
@@ -12099,7 +12099,7 @@ var require_react_dom_development = __commonJS({
                 }
               }
               if (isArray(newChild) || getIteratorFn(newChild)) {
-                if (key !== null) {
+                if (key2 !== null) {
                   return null;
                 }
                 return updateFragment2(returnFiber, oldFiber, newChild, lanes, null);
@@ -12155,20 +12155,20 @@ var require_react_dom_development = __commonJS({
                 case REACT_ELEMENT_TYPE:
                 case REACT_PORTAL_TYPE:
                   warnForMissingKey(child, returnFiber);
-                  var key = child.key;
-                  if (typeof key !== "string") {
+                  var key2 = child.key;
+                  if (typeof key2 !== "string") {
                     break;
                   }
                   if (knownKeys === null) {
                     knownKeys = /* @__PURE__ */ new Set();
-                    knownKeys.add(key);
+                    knownKeys.add(key2);
                     break;
                   }
-                  if (!knownKeys.has(key)) {
-                    knownKeys.add(key);
+                  if (!knownKeys.has(key2)) {
+                    knownKeys.add(key2);
                     break;
                   }
-                  error("Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted \u2014 the behavior is unsupported and could change in a future version.", key);
+                  error("Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted \u2014 the behavior is unsupported and could change in a future version.", key2);
                   break;
                 case REACT_LAZY_TYPE:
                   var payload = child._payload;
@@ -12416,10 +12416,10 @@ var require_react_dom_development = __commonJS({
             return created;
           }
           function reconcileSingleElement(returnFiber, currentFirstChild, element, lanes) {
-            var key = element.key;
+            var key2 = element.key;
             var child = currentFirstChild;
             while (child !== null) {
-              if (child.key === key) {
+              if (child.key === key2) {
                 var elementType = element.type;
                 if (elementType === REACT_FRAGMENT_TYPE) {
                   if (child.tag === Fragment) {
@@ -12469,10 +12469,10 @@ var require_react_dom_development = __commonJS({
             }
           }
           function reconcileSinglePortal(returnFiber, currentFirstChild, portal, lanes) {
-            var key = portal.key;
+            var key2 = portal.key;
             var child = currentFirstChild;
             while (child !== null) {
-              if (child.key === key) {
+              if (child.key === key2) {
                 if (child.tag === HostPortal && child.stateNode.containerInfo === portal.containerInfo && child.stateNode.implementation === portal.implementation) {
                   deleteRemainingChildren(returnFiber, child.sibling);
                   var existing = useFiber(child, portal.children || []);
@@ -15357,9 +15357,9 @@ var require_react_dom_development = __commonJS({
             if (callback === null || typeof callback === "function") {
               return;
             }
-            var key = callerName + "_" + callback;
-            if (!didWarnOnInvalidCallback.has(key)) {
-              didWarnOnInvalidCallback.add(key);
+            var key2 = callerName + "_" + callback;
+            if (!didWarnOnInvalidCallback.has(key2)) {
+              didWarnOnInvalidCallback.add(key2);
               error("%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callerName, callback);
             }
           };
@@ -22137,9 +22137,9 @@ var require_react_dom_development = __commonJS({
             hasBadMapPolyfill = true;
           }
         }
-        function FiberNode(tag, pendingProps, key, mode) {
+        function FiberNode(tag, pendingProps, key2, mode) {
           this.tag = tag;
-          this.key = key;
+          this.key = key2;
           this.elementType = null;
           this.type = null;
           this.stateNode = null;
@@ -22180,8 +22180,8 @@ var require_react_dom_development = __commonJS({
             }
           }
         }
-        var createFiber = function(tag, pendingProps, key, mode) {
-          return new FiberNode(tag, pendingProps, key, mode);
+        var createFiber = function(tag, pendingProps, key2, mode) {
+          return new FiberNode(tag, pendingProps, key2, mode);
         };
         function shouldConstruct$1(Component) {
           var prototype = Component.prototype;
@@ -22323,7 +22323,7 @@ var require_react_dom_development = __commonJS({
           }
           return createFiber(HostRoot, null, null, mode);
         }
-        function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes) {
+        function createFiberFromTypeAndProps(type, key2, pendingProps, owner, mode, lanes) {
           var fiberTag = IndeterminateComponent;
           var resolvedType = type;
           if (typeof type === "function") {
@@ -22342,7 +22342,7 @@ var require_react_dom_development = __commonJS({
           } else {
             getTag: switch (type) {
               case REACT_FRAGMENT_TYPE:
-                return createFiberFromFragment(pendingProps.children, mode, lanes, key);
+                return createFiberFromFragment(pendingProps.children, mode, lanes, key2);
               case REACT_STRICT_MODE_TYPE:
                 fiberTag = Mode;
                 mode |= StrictLegacyMode;
@@ -22351,13 +22351,13 @@ var require_react_dom_development = __commonJS({
                 }
                 break;
               case REACT_PROFILER_TYPE:
-                return createFiberFromProfiler(pendingProps, mode, lanes, key);
+                return createFiberFromProfiler(pendingProps, mode, lanes, key2);
               case REACT_SUSPENSE_TYPE:
-                return createFiberFromSuspense(pendingProps, mode, lanes, key);
+                return createFiberFromSuspense(pendingProps, mode, lanes, key2);
               case REACT_SUSPENSE_LIST_TYPE:
-                return createFiberFromSuspenseList(pendingProps, mode, lanes, key);
+                return createFiberFromSuspenseList(pendingProps, mode, lanes, key2);
               case REACT_OFFSCREEN_TYPE:
-                return createFiberFromOffscreen(pendingProps, mode, lanes, key);
+                return createFiberFromOffscreen(pendingProps, mode, lanes, key2);
               case REACT_LEGACY_HIDDEN_TYPE:
               // eslint-disable-next-line no-fallthrough
               case REACT_SCOPE_TYPE:
@@ -22406,7 +22406,7 @@ var require_react_dom_development = __commonJS({
               }
             }
           }
-          var fiber = createFiber(fiberTag, pendingProps, key, mode);
+          var fiber = createFiber(fiberTag, pendingProps, key2, mode);
           fiber.elementType = type;
           fiber.type = resolvedType;
           fiber.lanes = lanes;
@@ -22421,27 +22421,27 @@ var require_react_dom_development = __commonJS({
             owner = element._owner;
           }
           var type = element.type;
-          var key = element.key;
+          var key2 = element.key;
           var pendingProps = element.props;
-          var fiber = createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes);
+          var fiber = createFiberFromTypeAndProps(type, key2, pendingProps, owner, mode, lanes);
           {
             fiber._debugSource = element._source;
             fiber._debugOwner = element._owner;
           }
           return fiber;
         }
-        function createFiberFromFragment(elements, mode, lanes, key) {
-          var fiber = createFiber(Fragment, elements, key, mode);
+        function createFiberFromFragment(elements, mode, lanes, key2) {
+          var fiber = createFiber(Fragment, elements, key2, mode);
           fiber.lanes = lanes;
           return fiber;
         }
-        function createFiberFromProfiler(pendingProps, mode, lanes, key) {
+        function createFiberFromProfiler(pendingProps, mode, lanes, key2) {
           {
             if (typeof pendingProps.id !== "string") {
               error('Profiler must specify an "id" of type `string` as a prop. Received the type `%s` instead.', typeof pendingProps.id);
             }
           }
-          var fiber = createFiber(Profiler, pendingProps, key, mode | ProfileMode);
+          var fiber = createFiber(Profiler, pendingProps, key2, mode | ProfileMode);
           fiber.elementType = REACT_PROFILER_TYPE;
           fiber.lanes = lanes;
           {
@@ -22452,20 +22452,20 @@ var require_react_dom_development = __commonJS({
           }
           return fiber;
         }
-        function createFiberFromSuspense(pendingProps, mode, lanes, key) {
-          var fiber = createFiber(SuspenseComponent, pendingProps, key, mode);
+        function createFiberFromSuspense(pendingProps, mode, lanes, key2) {
+          var fiber = createFiber(SuspenseComponent, pendingProps, key2, mode);
           fiber.elementType = REACT_SUSPENSE_TYPE;
           fiber.lanes = lanes;
           return fiber;
         }
-        function createFiberFromSuspenseList(pendingProps, mode, lanes, key) {
-          var fiber = createFiber(SuspenseListComponent, pendingProps, key, mode);
+        function createFiberFromSuspenseList(pendingProps, mode, lanes, key2) {
+          var fiber = createFiber(SuspenseListComponent, pendingProps, key2, mode);
           fiber.elementType = REACT_SUSPENSE_LIST_TYPE;
           fiber.lanes = lanes;
           return fiber;
         }
-        function createFiberFromOffscreen(pendingProps, mode, lanes, key) {
-          var fiber = createFiber(OffscreenComponent, pendingProps, key, mode);
+        function createFiberFromOffscreen(pendingProps, mode, lanes, key2) {
+          var fiber = createFiber(OffscreenComponent, pendingProps, key2, mode);
           fiber.elementType = REACT_OFFSCREEN_TYPE;
           fiber.lanes = lanes;
           var primaryChildInstance = {
@@ -22609,14 +22609,14 @@ var require_react_dom_development = __commonJS({
         }
         var ReactVersion = "18.3.1";
         function createPortal2(children, containerInfo, implementation) {
-          var key = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
+          var key2 = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
           {
-            checkKeyStringCoercion(key);
+            checkKeyStringCoercion(key2);
           }
           return {
             // This tag allow us to uniquely identify this as a React Portal
             $$typeof: REACT_PORTAL_TYPE,
-            key: key == null ? null : "" + key,
+            key: key2 == null ? null : "" + key2,
             children,
             containerInfo,
             implementation
@@ -22844,17 +22844,17 @@ var require_react_dom_development = __commonJS({
         var setSuspenseHandler = null;
         {
           var copyWithDeleteImpl = function(obj, path, index2) {
-            var key = path[index2];
+            var key2 = path[index2];
             var updated = isArray(obj) ? obj.slice() : assign({}, obj);
             if (index2 + 1 === path.length) {
               if (isArray(updated)) {
-                updated.splice(key, 1);
+                updated.splice(key2, 1);
               } else {
-                delete updated[key];
+                delete updated[key2];
               }
               return updated;
             }
-            updated[key] = copyWithDeleteImpl(obj[key], path, index2 + 1);
+            updated[key2] = copyWithDeleteImpl(obj[key2], path, index2 + 1);
             return updated;
           };
           var copyWithDelete = function(obj, path) {
@@ -22900,9 +22900,9 @@ var require_react_dom_development = __commonJS({
             if (index2 >= path.length) {
               return value;
             }
-            var key = path[index2];
+            var key2 = path[index2];
             var updated = isArray(obj) ? obj.slice() : assign({}, obj);
-            updated[key] = copyWithSetImpl(obj[key], path, index2 + 1, value);
+            updated[key2] = copyWithSetImpl(obj[key2], path, index2 + 1, value);
             return updated;
           };
           var copyWithSet = function(obj, path, value) {
@@ -23461,11 +23461,11 @@ var require_react_dom_development = __commonJS({
         setRestoreImplementation(restoreControlledState$3);
         setBatchingImplementation(batchedUpdates$1, discreteUpdates, flushSync);
         function createPortal$1(children, container) {
-          var key = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
+          var key2 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
           if (!isValidContainer(container)) {
             throw new Error("Target container is not a DOM element.");
           }
-          return createPortal2(children, container, null, key);
+          return createPortal2(children, container, null, key2);
         }
         function renderSubtreeIntoContainer(parentComponent, element, containerNode, callback) {
           return unstable_renderSubtreeIntoContainer(parentComponent, element, containerNode, callback);
@@ -23738,10 +23738,10 @@ function createAdjustmentFn(modifier) {
     }
     return adjustments.reduce((accumulator, adjustment) => {
       const entries = Object.entries(adjustment);
-      for (const [key, valueAdjustment] of entries) {
-        const value = accumulator[key];
+      for (const [key2, valueAdjustment] of entries) {
+        const value = accumulator[key2];
         if (value != null) {
-          accumulator[key] = value + modifier * valueAdjustment;
+          accumulator[key2] = value + modifier * valueAdjustment;
         }
       }
       return accumulator;
@@ -23803,6 +23803,50 @@ function getEventCoordinates(event) {
   }
   return null;
 }
+var CSS = /* @__PURE__ */ Object.freeze({
+  Translate: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+      const {
+        x,
+        y
+      } = transform;
+      return "translate3d(" + (x ? Math.round(x) : 0) + "px, " + (y ? Math.round(y) : 0) + "px, 0)";
+    }
+  },
+  Scale: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+      const {
+        scaleX,
+        scaleY
+      } = transform;
+      return "scaleX(" + scaleX + ") scaleY(" + scaleY + ")";
+    }
+  },
+  Transform: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+      return [CSS.Translate.toString(transform), CSS.Scale.toString(transform)].join(" ");
+    }
+  },
+  Transition: {
+    toString(_ref) {
+      let {
+        property,
+        duration,
+        easing
+      } = _ref;
+      return property + " " + duration + "ms " + easing;
+    }
+  }
+});
 var SELECTOR = "a,frame,iframe,input:not([type=hidden]):not(:disabled),select:not(:disabled),textarea:not(:disabled),button:not(:disabled),*[tabindex]";
 function findFirstFocusableNode(element) {
   if (element.matches(SELECTOR)) {
@@ -24051,6 +24095,17 @@ var defaultCoordinates = /* @__PURE__ */ Object.freeze({
   x: 0,
   y: 0
 });
+function getRelativeTransformOrigin(event, rect) {
+  const eventCoordinates = getEventCoordinates(event);
+  if (!eventCoordinates) {
+    return "0 0";
+  }
+  const transformOrigin = {
+    x: (eventCoordinates.x - rect.left) / rect.width * 100,
+    y: (eventCoordinates.y - rect.top) / rect.height * 100
+  };
+  return transformOrigin.x + "% " + transformOrigin.y + "%";
+}
 function sortCollisionsDesc(_ref3, _ref4) {
   let {
     data: {
@@ -24512,12 +24567,12 @@ var Rect = class {
     this.width = rect.width;
     this.height = rect.height;
     for (const [axis, keys, getScrollOffset] of properties) {
-      for (const key of keys) {
-        Object.defineProperty(this, key, {
+      for (const key2 of keys) {
+        Object.defineProperty(this, key2, {
           get: () => {
             const currentOffsets = getScrollOffset(scrollableAncestors);
             const scrollOffsetsDeltla = scrollOffsets[axis] - currentOffsets;
-            return this.rect[key] + scrollOffsetsDeltla;
+            return this.rect[key2] + scrollOffsetsDeltla;
           },
           enumerable: true
         });
@@ -25949,11 +26004,11 @@ function reducer(state, action) {
     case Action.SetDroppableDisabled: {
       const {
         id,
-        key,
+        key: key2,
         disabled
       } = action;
       const element = state.droppable.containers.get(id);
-      if (!element || key !== element.key) {
+      if (!element || key2 !== element.key) {
         return state;
       }
       const containers = new DroppableContainersMap(state.droppable.containers);
@@ -25972,10 +26027,10 @@ function reducer(state, action) {
     case Action.UnregisterDroppable: {
       const {
         id,
-        key
+        key: key2
       } = action;
       const element = state.droppable.containers.get(id);
-      if (!element || key !== element.key) {
+      if (!element || key2 !== element.key) {
         return state;
       }
       const containers = new DroppableContainersMap(state.droppable.containers);
@@ -26640,7 +26695,7 @@ function useDraggable(_ref) {
     disabled = false,
     attributes
   } = _ref;
-  const key = useUniqueId(ID_PREFIX);
+  const key2 = useUniqueId(ID_PREFIX);
   const {
     activators,
     activatorEvent,
@@ -26665,14 +26720,14 @@ function useDraggable(_ref) {
     () => {
       draggableNodes.set(id, {
         id,
-        key,
+        key: key2,
         node,
         activatorNode,
         data: dataRef
       });
       return () => {
         const node2 = draggableNodes.get(id);
-        if (node2 && node2.key === key) {
+        if (node2 && node2.key === key2) {
           draggableNodes.delete(id);
         }
       };
@@ -26702,6 +26757,9 @@ function useDraggable(_ref) {
     transform
   };
 }
+function useDndContext() {
+  return (0, import_react3.useContext)(PublicContext);
+}
 var ID_PREFIX$1 = "Droppable";
 var defaultResizeObserverConfig = {
   timeout: 25
@@ -26713,7 +26771,7 @@ function useDroppable(_ref) {
     id,
     resizeObserverConfig
   } = _ref;
-  const key = useUniqueId(ID_PREFIX$1);
+  const key2 = useUniqueId(ID_PREFIX$1);
   const {
     active,
     dispatch,
@@ -26784,7 +26842,7 @@ function useDroppable(_ref) {
         type: Action.RegisterDroppable,
         element: {
           id,
-          key,
+          key: key2,
           disabled,
           node: nodeRef,
           rect,
@@ -26793,7 +26851,7 @@ function useDroppable(_ref) {
       });
       return () => dispatch({
         type: Action.UnregisterDroppable,
-        key,
+        key: key2,
         id
       });
     },
@@ -26805,12 +26863,12 @@ function useDroppable(_ref) {
       dispatch({
         type: Action.SetDroppableDisabled,
         id,
-        key,
+        key: key2,
         disabled
       });
       previous.current.disabled = disabled;
     }
-  }, [id, key, disabled, dispatch]);
+  }, [id, key2, disabled, dispatch]);
   return {
     active,
     rect,
@@ -26820,6 +26878,356 @@ function useDroppable(_ref) {
     setNodeRef
   };
 }
+function AnimationManager(_ref) {
+  let {
+    animation,
+    children
+  } = _ref;
+  const [clonedChildren, setClonedChildren] = (0, import_react3.useState)(null);
+  const [element, setElement] = (0, import_react3.useState)(null);
+  const previousChildren = usePrevious(children);
+  if (!children && !clonedChildren && previousChildren) {
+    setClonedChildren(previousChildren);
+  }
+  useIsomorphicLayoutEffect(() => {
+    if (!element) {
+      return;
+    }
+    const key2 = clonedChildren == null ? void 0 : clonedChildren.key;
+    const id = clonedChildren == null ? void 0 : clonedChildren.props.id;
+    if (key2 == null || id == null) {
+      setClonedChildren(null);
+      return;
+    }
+    Promise.resolve(animation(id, element)).then(() => {
+      setClonedChildren(null);
+    });
+  }, [animation, clonedChildren, element]);
+  return import_react3.default.createElement(import_react3.default.Fragment, null, children, clonedChildren ? (0, import_react3.cloneElement)(clonedChildren, {
+    ref: setElement
+  }) : null);
+}
+var defaultTransform = {
+  x: 0,
+  y: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+function NullifiedContextProvider(_ref) {
+  let {
+    children
+  } = _ref;
+  return import_react3.default.createElement(InternalContext.Provider, {
+    value: defaultInternalContext
+  }, import_react3.default.createElement(ActiveDraggableContext.Provider, {
+    value: defaultTransform
+  }, children));
+}
+var baseStyles = {
+  position: "fixed",
+  touchAction: "none"
+};
+var defaultTransition = (activatorEvent) => {
+  const isKeyboardActivator = isKeyboardEvent(activatorEvent);
+  return isKeyboardActivator ? "transform 250ms ease" : void 0;
+};
+var PositionedOverlay = /* @__PURE__ */ (0, import_react3.forwardRef)((_ref, ref) => {
+  let {
+    as,
+    activatorEvent,
+    adjustScale: adjustScale2,
+    children,
+    className,
+    rect,
+    style,
+    transform,
+    transition = defaultTransition
+  } = _ref;
+  if (!rect) {
+    return null;
+  }
+  const scaleAdjustedTransform = adjustScale2 ? transform : {
+    ...transform,
+    scaleX: 1,
+    scaleY: 1
+  };
+  const styles = {
+    ...baseStyles,
+    width: rect.width,
+    height: rect.height,
+    top: rect.top,
+    left: rect.left,
+    transform: CSS.Transform.toString(scaleAdjustedTransform),
+    transformOrigin: adjustScale2 && activatorEvent ? getRelativeTransformOrigin(activatorEvent, rect) : void 0,
+    transition: typeof transition === "function" ? transition(activatorEvent) : transition,
+    ...style
+  };
+  return import_react3.default.createElement(as, {
+    className,
+    style: styles,
+    ref
+  }, children);
+});
+var defaultDropAnimationSideEffects = (options) => (_ref) => {
+  let {
+    active,
+    dragOverlay
+  } = _ref;
+  const originalStyles = {};
+  const {
+    styles,
+    className
+  } = options;
+  if (styles != null && styles.active) {
+    for (const [key2, value] of Object.entries(styles.active)) {
+      if (value === void 0) {
+        continue;
+      }
+      originalStyles[key2] = active.node.style.getPropertyValue(key2);
+      active.node.style.setProperty(key2, value);
+    }
+  }
+  if (styles != null && styles.dragOverlay) {
+    for (const [key2, value] of Object.entries(styles.dragOverlay)) {
+      if (value === void 0) {
+        continue;
+      }
+      dragOverlay.node.style.setProperty(key2, value);
+    }
+  }
+  if (className != null && className.active) {
+    active.node.classList.add(className.active);
+  }
+  if (className != null && className.dragOverlay) {
+    dragOverlay.node.classList.add(className.dragOverlay);
+  }
+  return function cleanup() {
+    for (const [key2, value] of Object.entries(originalStyles)) {
+      active.node.style.setProperty(key2, value);
+    }
+    if (className != null && className.active) {
+      active.node.classList.remove(className.active);
+    }
+  };
+};
+var defaultKeyframeResolver = (_ref2) => {
+  let {
+    transform: {
+      initial,
+      final
+    }
+  } = _ref2;
+  return [{
+    transform: CSS.Transform.toString(initial)
+  }, {
+    transform: CSS.Transform.toString(final)
+  }];
+};
+var defaultDropAnimationConfiguration = {
+  duration: 250,
+  easing: "ease",
+  keyframes: defaultKeyframeResolver,
+  sideEffects: /* @__PURE__ */ defaultDropAnimationSideEffects({
+    styles: {
+      active: {
+        opacity: "0"
+      }
+    }
+  })
+};
+function useDropAnimation(_ref3) {
+  let {
+    config,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  } = _ref3;
+  return useEvent((id, node) => {
+    if (config === null) {
+      return;
+    }
+    const activeDraggable = draggableNodes.get(id);
+    if (!activeDraggable) {
+      return;
+    }
+    const activeNode = activeDraggable.node.current;
+    if (!activeNode) {
+      return;
+    }
+    const measurableNode = getMeasurableNode(node);
+    if (!measurableNode) {
+      return;
+    }
+    const {
+      transform
+    } = getWindow(node).getComputedStyle(node);
+    const parsedTransform = parseTransform(transform);
+    if (!parsedTransform) {
+      return;
+    }
+    const animation = typeof config === "function" ? config : createDefaultDropAnimation(config);
+    scrollIntoViewIfNeeded(activeNode, measuringConfiguration.draggable.measure);
+    return animation({
+      active: {
+        id,
+        data: activeDraggable.data,
+        node: activeNode,
+        rect: measuringConfiguration.draggable.measure(activeNode)
+      },
+      draggableNodes,
+      dragOverlay: {
+        node,
+        rect: measuringConfiguration.dragOverlay.measure(measurableNode)
+      },
+      droppableContainers,
+      measuringConfiguration,
+      transform: parsedTransform
+    });
+  });
+}
+function createDefaultDropAnimation(options) {
+  const {
+    duration,
+    easing,
+    sideEffects,
+    keyframes
+  } = {
+    ...defaultDropAnimationConfiguration,
+    ...options
+  };
+  return (_ref4) => {
+    let {
+      active,
+      dragOverlay,
+      transform,
+      ...rest
+    } = _ref4;
+    if (!duration) {
+      return;
+    }
+    const delta = {
+      x: dragOverlay.rect.left - active.rect.left,
+      y: dragOverlay.rect.top - active.rect.top
+    };
+    const scale = {
+      scaleX: transform.scaleX !== 1 ? active.rect.width * transform.scaleX / dragOverlay.rect.width : 1,
+      scaleY: transform.scaleY !== 1 ? active.rect.height * transform.scaleY / dragOverlay.rect.height : 1
+    };
+    const finalTransform = {
+      x: transform.x - delta.x,
+      y: transform.y - delta.y,
+      ...scale
+    };
+    const animationKeyframes = keyframes({
+      ...rest,
+      active,
+      dragOverlay,
+      transform: {
+        initial: transform,
+        final: finalTransform
+      }
+    });
+    const [firstKeyframe] = animationKeyframes;
+    const lastKeyframe = animationKeyframes[animationKeyframes.length - 1];
+    if (JSON.stringify(firstKeyframe) === JSON.stringify(lastKeyframe)) {
+      return;
+    }
+    const cleanup = sideEffects == null ? void 0 : sideEffects({
+      active,
+      dragOverlay,
+      ...rest
+    });
+    const animation = dragOverlay.node.animate(animationKeyframes, {
+      duration,
+      easing,
+      fill: "forwards"
+    });
+    return new Promise((resolve) => {
+      animation.onfinish = () => {
+        cleanup == null ? void 0 : cleanup();
+        resolve();
+      };
+    });
+  };
+}
+var key = 0;
+function useKey(id) {
+  return (0, import_react3.useMemo)(() => {
+    if (id == null) {
+      return;
+    }
+    key++;
+    return key;
+  }, [id]);
+}
+var DragOverlay = /* @__PURE__ */ import_react3.default.memo((_ref) => {
+  let {
+    adjustScale: adjustScale2 = false,
+    children,
+    dropAnimation: dropAnimationConfig,
+    style,
+    transition,
+    modifiers,
+    wrapperElement = "div",
+    className,
+    zIndex = 999
+  } = _ref;
+  const {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggableNodes,
+    droppableContainers,
+    dragOverlay,
+    over,
+    measuringConfiguration,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  } = useDndContext();
+  const transform = (0, import_react3.useContext)(ActiveDraggableContext);
+  const key2 = useKey(active == null ? void 0 : active.id);
+  const modifiedTransform = applyModifiers(modifiers, {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect: dragOverlay.rect,
+    over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    transform,
+    windowRect
+  });
+  const initialRect = useInitialValue(activeNodeRect);
+  const dropAnimation = useDropAnimation({
+    config: dropAnimationConfig,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  });
+  const ref = initialRect ? dragOverlay.setRef : void 0;
+  return import_react3.default.createElement(NullifiedContextProvider, null, import_react3.default.createElement(AnimationManager, {
+    animation: dropAnimation
+  }, active && key2 ? import_react3.default.createElement(PositionedOverlay, {
+    key: key2,
+    id: active.id,
+    ref,
+    as: wrapperElement,
+    activatorEvent,
+    adjustScale: adjustScale2,
+    className,
+    transition,
+    rect: initialRect,
+    style: {
+      zIndex,
+      ...style
+    },
+    transform: modifiedTransform
+  }, children) : null));
+});
 
 // src/frontend/components/BoardColumn.tsx
 var import_react4 = __toESM(require_react());
@@ -26894,6 +27302,7 @@ function App() {
   const [showAdd, setShowAdd] = (0, import_react7.useState)(false);
   const [editing, setEditing] = (0, import_react7.useState)(null);
   const [briefing, setBriefing] = (0, import_react7.useState)({ today: [], tomorrow: [] });
+  const [activeTask, setActiveTask] = (0, import_react7.useState)(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
@@ -26959,9 +27368,16 @@ function App() {
     const next = tasks.map((t) => t.id !== id ? t : { ...t, status: to, updatedAt: nowIso() });
     await saveTasks(next);
   };
+  const onDragStart = (event) => {
+    const activeId = String(event.active?.id || "");
+    if (!activeId.startsWith("task-")) return;
+    const taskId = activeId.replace("task-", "");
+    setActiveTask(tasks.find((t) => t.id === taskId) || null);
+  };
   const onDragEnd = async (event) => {
     const activeId = String(event.active?.id || "");
     const overId = String(event.over?.id || "");
+    setActiveTask(null);
     if (!activeId.startsWith("task-") || !overId.startsWith("col-")) return;
     const taskId = activeId.replace("task-", "");
     const targetCol = overId.replace("col-", "");
@@ -26979,7 +27395,7 @@ function App() {
     }
     return urls;
   };
-  return /* @__PURE__ */ import_react7.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react7.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react7.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react7.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react7.default.createElement(DndContext, { sensors, onDragEnd }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react7.default.createElement(BoardColumn, { key: col.id, columnId: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing })))), showAdd && /* @__PURE__ */ import_react7.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react7.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
+  return /* @__PURE__ */ import_react7.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react7.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react7.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react7.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react7.default.createElement(DndContext, { sensors, onDragStart, onDragEnd, onDragCancel: () => setActiveTask(null) }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react7.default.createElement(BoardColumn, { key: col.id, columnId: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing }))), /* @__PURE__ */ import_react7.default.createElement(DragOverlay, null, activeTask ? /* @__PURE__ */ import_react7.default.createElement("div", { className: "card", style: { width: 320, boxShadow: "0 14px 32px rgba(0,0,0,.45)", opacity: 0.95 } }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "card-title" }, activeTask.header || activeTask.title), /* @__PURE__ */ import_react7.default.createElement("span", { className: `pill ${activeTask.assignee === "agent" ? "agent" : "user"}` }, activeTask.assignee === "agent" ? "SGAi" : "Stefan")), activeTask.description ? /* @__PURE__ */ import_react7.default.createElement("div", { className: "meta" }, activeTask.description) : null) : null)), showAdd && /* @__PURE__ */ import_react7.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react7.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
     const next = tasks.map((t) => t.id !== editing.id ? t : { ...t, header: p.header, title: p.header, description: p.description, imageUrls: p.imageUrls, dueAt: p.dueAt, assignee: p.assignee, comments: p.comments || t.comments || [], updatedAt: nowIso() });
     await saveTasks(next);
     setEditing(null);

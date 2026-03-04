@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { DndContext, DragEndEvent, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { BoardColumn } from './components/BoardColumn';
 import { BriefingSection } from './components/BriefingSection';
 import { TaskModal } from './components/TaskModal';
@@ -17,6 +17,7 @@ export default function App() {
   const [showAdd, setShowAdd] = useState(false);
   const [editing, setEditing] = useState<Task | null>(null);
   const [briefing, setBriefing] = useState<{ today: any[]; tomorrow: any[] }>({ today: [], tomorrow: [] });
+  const [activeTask, setActiveTask] = useState<Task | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
@@ -78,9 +79,17 @@ export default function App() {
     await saveTasks(next);
   };
 
+  const onDragStart = (event: DragStartEvent) => {
+    const activeId = String(event.active?.id || '');
+    if (!activeId.startsWith('task-')) return;
+    const taskId = activeId.replace('task-', '');
+    setActiveTask(tasks.find(t => t.id === taskId) || null);
+  };
+
   const onDragEnd = async (event: DragEndEvent) => {
     const activeId = String(event.active?.id || '');
     const overId = String(event.over?.id || '');
+    setActiveTask(null);
     if (!activeId.startsWith('task-') || !overId.startsWith('col-')) return;
     const taskId = activeId.replace('task-', '');
     const targetCol = overId.replace('col-', '');
@@ -110,10 +119,18 @@ export default function App() {
 
     <BriefingSection briefing={briefing} />
 
-    <DndContext sensors={sensors} onDragEnd={onDragEnd}>
+    <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragCancel={() => setActiveTask(null)}>
       <div className="board">
         {COLUMNS.map(col => <BoardColumn key={col.id} columnId={col.id} label={col.label} tasks={grouped[col.id] || []} onEdit={setEditing} />)}
       </div>
+      <DragOverlay>
+        {activeTask ? (
+          <div className="card" style={{ width: 320, boxShadow: '0 14px 32px rgba(0,0,0,.45)', opacity: 0.95 }}>
+            <div className="row"><div className="card-title">{activeTask.header || activeTask.title}</div><span className={`pill ${activeTask.assignee === 'agent' ? 'agent' : 'user'}`}>{activeTask.assignee === 'agent' ? 'SGAi' : 'Stefan'}</span></div>
+            {activeTask.description ? <div className="meta">{activeTask.description}</div> : null}
+          </div>
+        ) : null}
+      </DragOverlay>
     </DndContext>
 
     {showAdd && <TaskModal title="Neuen Task anlegen" onClose={() => setShowAdd(false)} onSave={addTask} onUpload={uploadFiles} />}
