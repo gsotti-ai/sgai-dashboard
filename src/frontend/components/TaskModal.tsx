@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Task } from '../types';
 import { fmt, nowIso, parseImageLines } from '../utils';
+import { ImageSelector } from './ImageSelector';
 
 export function TaskModal({ title, task, onClose, onSave, onDelete, onUpload }: {
   title: string;
@@ -23,11 +24,7 @@ export function TaskModal({ title, task, onClose, onSave, onDelete, onUpload }: 
     <div className="modal-grid">
       <input className="full" value={header} onChange={e => setHeader(e.target.value)} placeholder="Header" />
       <textarea className="full" value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" />
-      <textarea className="full" value={imageText} onChange={e => setImageText(e.target.value)} placeholder="Image URLs" />
-      <input className="full" type="file" accept="image/*" multiple onChange={async e => {
-        const urls = await onUpload(e.currentTarget.files);
-        setImageText(v => [...parseImageLines(v), ...urls].join('\n'));
-      }} />
+      <ImageSelector value={imageText} onChange={setImageText} onUpload={onUpload} />
       <select value={assignee} onChange={e => setAssignee(e.target.value)}><option value="agent">SGAi (Agent)</option><option value="user">Stefan (User)</option></select>
       <input type="datetime-local" value={dueAt} onChange={e => setDueAt(e.target.value)} />
     </div>

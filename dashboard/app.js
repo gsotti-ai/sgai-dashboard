@@ -1083,7 +1083,7 @@ var require_react_development = __commonJS({
           }
           return dispatcher.useContext(Context);
         }
-        function useState5(initialState) {
+        function useState6(initialState) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useState(initialState);
         }
@@ -1091,7 +1091,7 @@ var require_react_development = __commonJS({
           var dispatcher = resolveDispatcher();
           return dispatcher.useReducer(reducer2, initialArg, init);
         }
-        function useRef3(initialValue) {
+        function useRef4(initialValue) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useRef(initialValue);
         }
@@ -1885,8 +1885,8 @@ var require_react_development = __commonJS({
         exports.useLayoutEffect = useLayoutEffect2;
         exports.useMemo = useMemo4;
         exports.useReducer = useReducer2;
-        exports.useRef = useRef3;
-        exports.useState = useState5;
+        exports.useRef = useRef4;
+        exports.useState = useState6;
         exports.useSyncExternalStore = useSyncExternalStore;
         exports.useTransition = useTransition;
         exports.version = ReactVersion;
@@ -2382,9 +2382,9 @@ var require_react_dom_development = __commonJS({
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
           __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
         }
-        var React8 = require_react();
+        var React9 = require_react();
         var Scheduler = require_scheduler();
-        var ReactSharedInternals = React8.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React9.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         var suppressWarning = false;
         function setSuppressWarning(newSuppressWarning) {
           {
@@ -3991,7 +3991,7 @@ var require_react_dom_development = __commonJS({
           {
             if (props.value == null) {
               if (typeof props.children === "object" && props.children !== null) {
-                React8.Children.forEach(props.children, function(child) {
+                React9.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -23581,11 +23581,11 @@ var require_client = __commonJS({
 });
 
 // src/frontend/main.tsx
-var import_react8 = __toESM(require_react());
+var import_react9 = __toESM(require_react());
 var import_client = __toESM(require_client());
 
 // src/frontend/App.tsx
-var import_react7 = __toESM(require_react());
+var import_react8 = __toESM(require_react());
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
 var import_react3 = __toESM(require_react());
@@ -27256,7 +27256,7 @@ function BriefingSection({ briefing }) {
 }
 
 // src/frontend/components/TaskModal.tsx
-var import_react6 = __toESM(require_react());
+var import_react7 = __toESM(require_react());
 
 // src/frontend/utils.ts
 var nowIso = () => (/* @__PURE__ */ new Date()).toISOString();
@@ -27264,23 +27264,97 @@ var fmt = (iso) => new Date(iso).toLocaleString("de-DE");
 var newId = () => crypto?.randomUUID?.() || `t-${Date.now()}`;
 var parseImageLines = (raw = "") => raw.split("\n").map((s) => s.trim()).filter(Boolean);
 
+// src/frontend/components/ImageSelector.tsx
+var import_react6 = __toESM(require_react());
+function ImageSelector({
+  value,
+  onChange,
+  onUpload
+}) {
+  const [isDragOver, setIsDragOver] = (0, import_react6.useState)(false);
+  const [isUploading, setIsUploading] = (0, import_react6.useState)(false);
+  const [uploadInfo, setUploadInfo] = (0, import_react6.useState)("");
+  const fileRef = (0, import_react6.useRef)(null);
+  const urls = parseImageLines(value);
+  const mergeUrls = (incoming) => {
+    const merged = Array.from(/* @__PURE__ */ new Set([...urls, ...incoming]));
+    onChange(merged.join("\n"));
+  };
+  const handleUpload = async (files) => {
+    if (!files || files.length === 0) return;
+    setIsUploading(true);
+    setUploadInfo(`Upload l\xE4uft (${files.length})...`);
+    try {
+      const uploaded = await onUpload(files);
+      mergeUrls(uploaded);
+      setUploadInfo(`${uploaded.length} Bild(er) hochgeladen`);
+    } catch (e) {
+      setUploadInfo(`Upload fehlgeschlagen: ${e?.message || "Unbekannter Fehler"}`);
+    } finally {
+      setIsUploading(false);
+      setTimeout(() => setUploadInfo(""), 2200);
+    }
+  };
+  const removeAt = (index) => {
+    const next = urls.filter((_, i) => i !== index);
+    onChange(next.join("\n"));
+  };
+  return /* @__PURE__ */ import_react6.default.createElement("div", { className: "full image-selector" }, /* @__PURE__ */ import_react6.default.createElement(
+    "div",
+    {
+      className: `image-drop ${isDragOver ? "drag" : ""}`,
+      onDragOver: (e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+      },
+      onDragLeave: () => setIsDragOver(false),
+      onDrop: (e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        handleUpload(e.dataTransfer.files);
+      }
+    },
+    /* @__PURE__ */ import_react6.default.createElement("div", { style: { fontWeight: 600 } }, "\u{1F5BC}\uFE0F Bilder hinzuf\xFCgen"),
+    /* @__PURE__ */ import_react6.default.createElement("div", { className: "meta", style: { marginTop: 4 } }, "Drag & Drop hierher oder Datei ausw\xE4hlen"),
+    /* @__PURE__ */ import_react6.default.createElement("div", { style: { marginTop: 10, display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" } }, /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", onClick: () => fileRef.current?.click(), disabled: isUploading }, isUploading ? "Upload..." : "Datei ausw\xE4hlen")),
+    uploadInfo ? /* @__PURE__ */ import_react6.default.createElement("div", { className: "meta", style: { marginTop: 8 } }, uploadInfo) : null,
+    /* @__PURE__ */ import_react6.default.createElement(
+      "input",
+      {
+        ref: fileRef,
+        style: { display: "none" },
+        type: "file",
+        accept: "image/*",
+        multiple: true,
+        onChange: (e) => handleUpload(e.currentTarget.files)
+      }
+    )
+  ), /* @__PURE__ */ import_react6.default.createElement(
+    "textarea",
+    {
+      className: "full",
+      value,
+      onChange: (e) => onChange(e.target.value),
+      placeholder: "Image URLs (eine URL pro Zeile)",
+      style: { marginTop: 10 }
+    }
+  ), urls.length > 0 ? /* @__PURE__ */ import_react6.default.createElement("div", { className: "image-preview-grid", style: { marginTop: 10 } }, urls.map((u, i) => /* @__PURE__ */ import_react6.default.createElement("div", { key: `${u}-${i}`, className: "image-preview-item" }, /* @__PURE__ */ import_react6.default.createElement("a", { href: u, target: "_blank", rel: "noreferrer", className: "image-preview-link", title: u }, /* @__PURE__ */ import_react6.default.createElement("img", { src: u, alt: `preview-${i}`, loading: "lazy" })), /* @__PURE__ */ import_react6.default.createElement("div", { className: "image-preview-actions" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "meta", style: { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, u), /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn-danger", onClick: () => removeAt(i) }, "Entfernen"))))) : null);
+}
+
 // src/frontend/components/TaskModal.tsx
 function TaskModal({ title, task, onClose, onSave, onDelete, onUpload }) {
-  const [header, setHeader] = (0, import_react6.useState)(task?.header || task?.title || "");
-  const [description, setDescription] = (0, import_react6.useState)(task?.description || "");
-  const [assignee, setAssignee] = (0, import_react6.useState)(task?.assignee || "agent");
-  const [dueAt, setDueAt] = (0, import_react6.useState)(task?.dueAt ? new Date(task.dueAt).toISOString().slice(0, 16) : "");
-  const [imageText, setImageText] = (0, import_react6.useState)((task?.imageUrls || []).join("\n"));
-  const [comments, setComments] = (0, import_react6.useState)(task?.comments || []);
-  const [commentInput, setCommentInput] = (0, import_react6.useState)("");
-  return /* @__PURE__ */ import_react6.default.createElement("div", { className: "modal open", onClick: (e) => e.target === e.currentTarget && onClose() }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "modal-card" }, /* @__PURE__ */ import_react6.default.createElement("h3", { style: { marginTop: 0 } }, title), /* @__PURE__ */ import_react6.default.createElement("div", { className: "modal-grid" }, /* @__PURE__ */ import_react6.default.createElement("input", { className: "full", value: header, onChange: (e) => setHeader(e.target.value), placeholder: "Header" }), /* @__PURE__ */ import_react6.default.createElement("textarea", { className: "full", value: description, onChange: (e) => setDescription(e.target.value), placeholder: "Description" }), /* @__PURE__ */ import_react6.default.createElement("textarea", { className: "full", value: imageText, onChange: (e) => setImageText(e.target.value), placeholder: "Image URLs" }), /* @__PURE__ */ import_react6.default.createElement("input", { className: "full", type: "file", accept: "image/*", multiple: true, onChange: async (e) => {
-    const urls = await onUpload(e.currentTarget.files);
-    setImageText((v) => [...parseImageLines(v), ...urls].join("\n"));
-  } }), /* @__PURE__ */ import_react6.default.createElement("select", { value: assignee, onChange: (e) => setAssignee(e.target.value) }, /* @__PURE__ */ import_react6.default.createElement("option", { value: "agent" }, "SGAi (Agent)"), /* @__PURE__ */ import_react6.default.createElement("option", { value: "user" }, "Stefan (User)")), /* @__PURE__ */ import_react6.default.createElement("input", { type: "datetime-local", value: dueAt, onChange: (e) => setDueAt(e.target.value) })), task ? /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("div", { className: "modal-grid", style: { marginTop: 10 } }, /* @__PURE__ */ import_react6.default.createElement("input", { className: "full", value: commentInput, onChange: (e) => setCommentInput(e.target.value), placeholder: "Kommentar" }), /* @__PURE__ */ import_react6.default.createElement("button", { onClick: () => {
+  const [header, setHeader] = (0, import_react7.useState)(task?.header || task?.title || "");
+  const [description, setDescription] = (0, import_react7.useState)(task?.description || "");
+  const [assignee, setAssignee] = (0, import_react7.useState)(task?.assignee || "agent");
+  const [dueAt, setDueAt] = (0, import_react7.useState)(task?.dueAt ? new Date(task.dueAt).toISOString().slice(0, 16) : "");
+  const [imageText, setImageText] = (0, import_react7.useState)((task?.imageUrls || []).join("\n"));
+  const [comments, setComments] = (0, import_react7.useState)(task?.comments || []);
+  const [commentInput, setCommentInput] = (0, import_react7.useState)("");
+  return /* @__PURE__ */ import_react7.default.createElement("div", { className: "modal open", onClick: (e) => e.target === e.currentTarget && onClose() }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "modal-card" }, /* @__PURE__ */ import_react7.default.createElement("h3", { style: { marginTop: 0 } }, title), /* @__PURE__ */ import_react7.default.createElement("div", { className: "modal-grid" }, /* @__PURE__ */ import_react7.default.createElement("input", { className: "full", value: header, onChange: (e) => setHeader(e.target.value), placeholder: "Header" }), /* @__PURE__ */ import_react7.default.createElement("textarea", { className: "full", value: description, onChange: (e) => setDescription(e.target.value), placeholder: "Description" }), /* @__PURE__ */ import_react7.default.createElement(ImageSelector, { value: imageText, onChange: setImageText, onUpload }), /* @__PURE__ */ import_react7.default.createElement("select", { value: assignee, onChange: (e) => setAssignee(e.target.value) }, /* @__PURE__ */ import_react7.default.createElement("option", { value: "agent" }, "SGAi (Agent)"), /* @__PURE__ */ import_react7.default.createElement("option", { value: "user" }, "Stefan (User)")), /* @__PURE__ */ import_react7.default.createElement("input", { type: "datetime-local", value: dueAt, onChange: (e) => setDueAt(e.target.value) })), task ? /* @__PURE__ */ import_react7.default.createElement(import_react7.default.Fragment, null, /* @__PURE__ */ import_react7.default.createElement("div", { className: "modal-grid", style: { marginTop: 10 } }, /* @__PURE__ */ import_react7.default.createElement("input", { className: "full", value: commentInput, onChange: (e) => setCommentInput(e.target.value), placeholder: "Kommentar" }), /* @__PURE__ */ import_react7.default.createElement("button", { onClick: () => {
     if (!commentInput.trim()) return;
     setComments([...comments, { at: nowIso(), author: "agent", text: commentInput.trim() }]);
     setCommentInput("");
-  } }, "Kommentar hinzuf\xFCgen")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "meta", style: { maxHeight: 180, overflow: "auto", marginTop: 8, border: "1px solid var(--line)", borderRadius: 8, padding: 8 } }, comments.slice().reverse().map((c, i) => /* @__PURE__ */ import_react6.default.createElement("div", { key: i }, /* @__PURE__ */ import_react6.default.createElement("strong", null, c.author || "agent"), " \xB7 ", fmt(c.at), /* @__PURE__ */ import_react6.default.createElement("br", null), c.text || "")))) : null, /* @__PURE__ */ import_react6.default.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "space-between", marginTop: 12 } }, task ? /* @__PURE__ */ import_react6.default.createElement("button", { className: "btn-danger", onClick: onDelete }, "Delete") : /* @__PURE__ */ import_react6.default.createElement("span", null), /* @__PURE__ */ import_react6.default.createElement("div", { style: { display: "flex", gap: 8 } }, /* @__PURE__ */ import_react6.default.createElement("button", { onClick: onClose }, "Abbrechen"), /* @__PURE__ */ import_react6.default.createElement("button", { className: "btn-primary", onClick: () => onSave({ header, description, assignee, dueAt: dueAt ? new Date(dueAt).toISOString() : null, imageUrls: parseImageLines(imageText), comments }) }, "Speichern")))));
+  } }, "Kommentar hinzuf\xFCgen")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "meta", style: { maxHeight: 180, overflow: "auto", marginTop: 8, border: "1px solid var(--line)", borderRadius: 8, padding: 8 } }, comments.slice().reverse().map((c, i) => /* @__PURE__ */ import_react7.default.createElement("div", { key: i }, /* @__PURE__ */ import_react7.default.createElement("strong", null, c.author || "agent"), " \xB7 ", fmt(c.at), /* @__PURE__ */ import_react7.default.createElement("br", null), c.text || "")))) : null, /* @__PURE__ */ import_react7.default.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "space-between", marginTop: 12 } }, task ? /* @__PURE__ */ import_react7.default.createElement("button", { className: "btn-danger", onClick: onDelete }, "Delete") : /* @__PURE__ */ import_react7.default.createElement("span", null), /* @__PURE__ */ import_react7.default.createElement("div", { style: { display: "flex", gap: 8 } }, /* @__PURE__ */ import_react7.default.createElement("button", { onClick: onClose }, "Abbrechen"), /* @__PURE__ */ import_react7.default.createElement("button", { className: "btn-primary", onClick: () => onSave({ header, description, assignee, dueAt: dueAt ? new Date(dueAt).toISOString() : null, imageUrls: parseImageLines(imageText), comments }) }, "Speichern")))));
 }
 
 // src/frontend/types.ts
@@ -27297,12 +27371,12 @@ var UPLOAD_API = new URL("../api/upload-image", window.location.href).toString()
 var BRIEFING_TODAY_URL = "../data/calendar-sync/today.json";
 var BRIEFING_TOMORROW_URL = "../data/calendar-sync/tomorrow.json";
 function App() {
-  const [tasks, setTasks] = (0, import_react7.useState)([]);
-  const [search, setSearch] = (0, import_react7.useState)("");
-  const [showAdd, setShowAdd] = (0, import_react7.useState)(false);
-  const [editing, setEditing] = (0, import_react7.useState)(null);
-  const [briefing, setBriefing] = (0, import_react7.useState)({ today: [], tomorrow: [] });
-  const [activeTask, setActiveTask] = (0, import_react7.useState)(null);
+  const [tasks, setTasks] = (0, import_react8.useState)([]);
+  const [search, setSearch] = (0, import_react8.useState)("");
+  const [showAdd, setShowAdd] = (0, import_react8.useState)(false);
+  const [editing, setEditing] = (0, import_react8.useState)(null);
+  const [briefing, setBriefing] = (0, import_react8.useState)({ today: [], tomorrow: [] });
+  const [activeTask, setActiveTask] = (0, import_react8.useState)(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } })
@@ -27325,7 +27399,7 @@ function App() {
     } catch {
     }
   };
-  (0, import_react7.useEffect)(() => {
+  (0, import_react8.useEffect)(() => {
     loadTasks();
     loadBriefing();
     const i = setInterval(() => {
@@ -27334,11 +27408,11 @@ function App() {
     }, 5e3);
     return () => clearInterval(i);
   }, []);
-  const filtered = (0, import_react7.useMemo)(() => {
+  const filtered = (0, import_react8.useMemo)(() => {
     const q = search.toLowerCase();
     return q ? tasks.filter((t) => `${t.header || t.title || ""} ${t.description || ""}`.toLowerCase().includes(q)) : tasks;
   }, [tasks, search]);
-  const grouped = (0, import_react7.useMemo)(() => {
+  const grouped = (0, import_react8.useMemo)(() => {
     const g = {};
     for (const c of COLUMNS) g[c.id] = [];
     for (const t of filtered) (g[t.status] ||= []).push(t);
@@ -27395,7 +27469,7 @@ function App() {
     }
     return urls;
   };
-  return /* @__PURE__ */ import_react7.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react7.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react7.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react7.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react7.default.createElement(DndContext, { sensors, onDragStart, onDragEnd, onDragCancel: () => setActiveTask(null) }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react7.default.createElement(BoardColumn, { key: col.id, columnId: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing }))), /* @__PURE__ */ import_react7.default.createElement(DragOverlay, null, activeTask ? /* @__PURE__ */ import_react7.default.createElement("div", { className: "card", style: { width: 320, boxShadow: "0 14px 32px rgba(0,0,0,.45)", opacity: 0.95 } }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "card-title" }, activeTask.header || activeTask.title), /* @__PURE__ */ import_react7.default.createElement("span", { className: `pill ${activeTask.assignee === "agent" ? "agent" : "user"}` }, activeTask.assignee === "agent" ? "SGAi" : "Stefan")), activeTask.description ? /* @__PURE__ */ import_react7.default.createElement("div", { className: "meta" }, activeTask.description) : null) : null)), showAdd && /* @__PURE__ */ import_react7.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react7.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
+  return /* @__PURE__ */ import_react8.default.createElement("div", { className: "wrap" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "header" }, /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement("h1", null, "\u{1F4CC} Task Board"), /* @__PURE__ */ import_react8.default.createElement("div", { className: "sub" }, "Open: ", tasks.filter((t) => t.status !== "done").length, " \xB7 Done: ", tasks.filter((t) => t.status === "done").length))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "toolbar" }, /* @__PURE__ */ import_react8.default.createElement("input", { className: "search", placeholder: "Suche in Tasks...", value: search, onChange: (e) => setSearch(e.target.value) }), /* @__PURE__ */ import_react8.default.createElement("button", { className: "btn-primary", onClick: () => setShowAdd(true) }, "+ Add Task")), /* @__PURE__ */ import_react8.default.createElement(BriefingSection, { briefing }), /* @__PURE__ */ import_react8.default.createElement(DndContext, { sensors, onDragStart, onDragEnd, onDragCancel: () => setActiveTask(null) }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "board" }, COLUMNS.map((col) => /* @__PURE__ */ import_react8.default.createElement(BoardColumn, { key: col.id, columnId: col.id, label: col.label, tasks: grouped[col.id] || [], onEdit: setEditing }))), /* @__PURE__ */ import_react8.default.createElement(DragOverlay, null, activeTask ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "card", style: { width: 320, boxShadow: "0 14px 32px rgba(0,0,0,.45)", opacity: 0.95 } }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "row" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "card-title" }, activeTask.header || activeTask.title), /* @__PURE__ */ import_react8.default.createElement("span", { className: `pill ${activeTask.assignee === "agent" ? "agent" : "user"}` }, activeTask.assignee === "agent" ? "SGAi" : "Stefan")), activeTask.description ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "meta" }, activeTask.description) : null) : null)), showAdd && /* @__PURE__ */ import_react8.default.createElement(TaskModal, { title: "Neuen Task anlegen", onClose: () => setShowAdd(false), onSave: addTask, onUpload: uploadFiles }), editing && /* @__PURE__ */ import_react8.default.createElement(TaskModal, { title: "Task bearbeiten", task: editing, onClose: () => setEditing(null), onUpload: uploadFiles, onSave: async (p) => {
     const next = tasks.map((t) => t.id !== editing.id ? t : { ...t, header: p.header, title: p.header, description: p.description, imageUrls: p.imageUrls, dueAt: p.dueAt, assignee: p.assignee, comments: p.comments || t.comments || [], updatedAt: nowIso() });
     await saveTasks(next);
     setEditing(null);
@@ -27406,7 +27480,7 @@ function App() {
 }
 
 // src/frontend/main.tsx
-(0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react8.default.createElement(App, null));
+(0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react9.default.createElement(App, null));
 /*! Bundled license information:
 
 react/cjs/react.development.js:
